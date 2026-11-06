@@ -1,5 +1,5 @@
 <div class="wod-portrait{{#unless hasPortrait}} is-empty{{/unless}}" style="--wod-wound: {{woundVignette}}">
-  <img src="{{actor.img}}" alt="{{actor.name}}" data-action="editImage" data-edit="img" />
+  <img src="{{actor.img}}" alt="{{actor.name}}" data-action="editImage" data-edit="img"{{#if editable}} title="{{localize "WOD.Action.editPortrait"}}"{{/if}} />
   {{#if hasPortrait}}
   <button
     type="button"

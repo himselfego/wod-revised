@@ -632,7 +632,8 @@
       "roll": "Roll",
       "save": "Save",
       "sheetSettings": "Sheet settings",
-      "showPortrait": "Open portrait"
+      "showPortrait": "Open portrait",
+      "editPortrait": "Choose portrait"
     },
     "Attribute": {
       "strength": "Strength",
@@ -747,11 +748,14 @@
       "showSecondaryAbilities": "Secondary abilities",
       "title": "Sheet settings"
     },
+    "Empty": {
+      "list": "Nothing here yet",
+      "listEditable": "Nothing here yet. Add one with \"+\""
+    },
     "Tab": {
       "stats": "Stats",
       "advantages": "Advantages",
-      "status": "Status",
-      "inventory": "Inventory"
+      "status": "Status"
     },
     "Virtue": {
       "conscience": "Conscience",

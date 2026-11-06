@@ -83,10 +83,9 @@ const actorSheetMinWidth = (dots: number = TRAIT_MAX): number => (
 );
 
 const SHEET_TAB_GROUP = 'sheet';
-const SHEET_TAB_IDS = ['stats', 'advantages', 'status', 'inventory'] as const;
+const SHEET_TAB_IDS = ['stats', 'advantages', 'status'] as const;
 const SHEET_TAB_ICONS = {
   advantages: 'fa-solid fa-scale-balanced',
-  inventory: 'fa-solid fa-briefcase',
   stats: 'fa-solid fa-user',
   status: 'fa-solid fa-heart-pulse',
 } as const;

@@ -632,7 +632,8 @@
       "roll": "Бросок",
       "save": "Сохранить",
       "sheetSettings": "Настройки листа",
-      "showPortrait": "Открыть портрет"
+      "showPortrait": "Открыть портрет",
+      "editPortrait": "Выбрать портрет"
     },
     "Attribute": {
       "strength": "Сила",
@@ -747,11 +748,14 @@
       "showSecondaryAbilities": "Вторичные способности",
       "title": "Настройки листа"
     },
+    "Empty": {
+      "list": "Пока пусто",
+      "listEditable": "Пока пусто. Добавьте через «+»"
+    },
     "Tab": {
       "stats": "Характеристики",
       "advantages": "Преимущества",
-      "status": "Статус",
-      "inventory": "Инвентарь"
+      "status": "Статус"
     },
     "Virtue": {
       "conscience": "Совесть",

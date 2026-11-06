@@ -5,7 +5,6 @@
 @source not "../../**/*.{ts,tsx,js,mjs,md,json}";
 
 @theme {
-  --background-image-wod-d10: url('/icons/svg/d10-grey.svg');
   --background-image-wod-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
   --background-image-wod-portrait: radial-gradient(ellipse at center, transparent 45%, rgb(0 0 0 / 58%) 100%);
   --background-image-wod-vignette: radial-gradient(ellipse at center, transparent 42%, rgb(0 0 0 / 62%) 100%);
@@ -21,8 +20,9 @@
   --color-wod-aggravated: #c9a0e4;
   --color-wod-bashing: #f0dc4a;
   --color-wod-bone: #cfc6b8;
+  --color-wod-die: #aaa;
   --color-wod-die-hit: #16a34a;
-  --color-wod-die-one: #e11d2a;
+  --color-wod-die-one: #ef4444;
   --color-wod-hairline: #8a8173;
   --color-wod-health: #9b2332;
   --color-wod-ink: #9a9186;
@@ -221,7 +221,7 @@
 
 .wod-name,
 .wod-item-name {
-  @apply w-full min-w-0 rounded-none border-0 border-b border-wod-hairline/40 bg-transparent px-0 pt-0.5 pb-0 font-wod-display leading-tight tracking-wider text-wod-bone shadow-none outline-none;
+  @apply w-full min-w-0 rounded-none border-0 border-b border-wod-hairline/75 bg-transparent px-0 pt-0.5 pb-0 font-wod-display leading-tight tracking-wider text-wod-bone shadow-none outline-none;
 }
 
 .wod-name-row {
@@ -265,13 +265,13 @@
 }
 
 .wod-field > span {
-  @apply text-xs tracking-widest text-wod-ink uppercase;
+  @apply text-[13px] tracking-wider text-wod-ink uppercase;
 }
 
 .wod-field input,
 .wod-field select {
   --input-height: 1.5rem;
-  @apply w-full rounded-none border-0 border-b border-wod-hairline/40 bg-transparent px-0 pt-0.5 pb-0 font-wod-body text-base text-wod-bone shadow-none outline-none;
+  @apply w-full rounded-none border-0 border-b border-wod-hairline/75 bg-transparent px-0 pt-0.5 pb-0 font-wod-body text-base text-wod-bone shadow-none outline-none;
 }
 
 .wod-identity {
@@ -306,7 +306,7 @@
 
 .application.wod-revised input.wod-money {
   --input-height: 1.25rem;
-  @apply [appearance:textfield] box-content min-w-[1ch] shrink-0 rounded-none border-0 border-b border-wod-hairline/40 bg-transparent p-0 font-wod-body text-base text-wod-money shadow-none tabular-nums;
+  @apply [appearance:textfield] box-content min-w-[1ch] shrink-0 rounded-none border-0 border-b border-wod-hairline/75 bg-transparent p-0 font-wod-body text-base text-wod-money shadow-none tabular-nums;
 }
 
 .application.wod-revised wod-health,
@@ -456,6 +456,10 @@
   @apply m-0;
 }
 
+.wod-empty {
+  @apply m-0 list-none text-center text-sm text-wod-ink italic;
+}
+
 .wod-stat {
   @apply relative flex flex-nowrap items-center gap-1.5;
 }
@@ -529,7 +533,11 @@
 }
 
 .application.wod-revised wod-dots button {
-  @apply box-border size-2.5 min-h-0 shrink-0 cursor-pointer rounded-full border border-wod-hairline/70 bg-transparent p-0 shadow-none;
+  @apply relative box-border size-2.5 min-h-0 shrink-0 cursor-pointer rounded-full border border-wod-hairline/70 bg-transparent p-0 shadow-none;
+}
+
+.application.wod-revised wod-dots button::after {
+  @apply absolute -inset-x-px -inset-y-1 content-wod-empty;
 }
 
 .application.wod-revised wod-dots button.is-filled {
@@ -558,11 +566,15 @@
 }
 
 .wod-column-heading {
-  @apply mb-1 flex items-center justify-center gap-1.5;
+  @apply mb-1 grid grid-cols-[1fr_auto_1fr] items-center gap-1.5 before:content-wod-empty;
 }
 
 .wod-column-heading .wod-column-title {
   @apply mb-0;
+}
+
+.wod-column-heading .wod-add {
+  @apply justify-self-start;
 }
 
 .application.wod-revised .wod-add,
@@ -584,7 +596,7 @@
 }
 
 .application.wod-revised .wod-trait__delete {
-  @apply size-4 min-h-0 shrink-0 border-0 bg-transparent p-0 text-sm leading-none text-wod-ink opacity-0;
+  @apply size-4 min-h-0 shrink-0 border-0 bg-transparent p-0 text-sm leading-none text-wod-ink opacity-50;
 }
 
 .application.wod-revised .wod-stat > .wod-trait__delete,
@@ -733,7 +745,7 @@
 }
 
 .application.wod-revised .wod-steps__delete {
-  @apply flex h-lh min-h-0 w-4 shrink-0 items-center justify-center border-0 bg-transparent p-0 text-sm leading-none text-wod-ink opacity-0;
+  @apply flex h-lh min-h-0 w-4 shrink-0 items-center justify-center border-0 bg-transparent p-0 text-sm leading-none text-wod-ink opacity-50;
 }
 
 .application.wod-revised .wod-steps__row:hover .wod-steps__delete,
@@ -743,7 +755,7 @@
 
 .application.wod-revised textarea.wod-steps__text {
   --input-height: auto;
-  @apply field-sizing-content min-h-lh w-full resize-none rounded-none border-0 border-b border-wod-hairline/40 bg-transparent px-0 py-0 font-wod-body text-sm leading-snug text-inherit shadow-none outline-none;
+  @apply field-sizing-content min-h-lh w-full resize-none rounded-none border-0 border-b border-wod-hairline/75 bg-transparent px-0 py-0 font-wod-body text-sm leading-snug text-inherit shadow-none outline-none;
 }
 
 .application.wod-revised textarea.wod-steps__text:focus {
@@ -815,7 +827,7 @@
 }
 
 .application.wod-revised .wod-levels__name {
-  @apply w-full rounded-none border-0 border-b border-wod-hairline/40 bg-transparent px-0 py-0 font-wod-display text-sm text-inherit shadow-none outline-none;
+  @apply w-full rounded-none border-0 border-b border-wod-hairline/75 bg-transparent px-0 py-0 font-wod-display text-sm text-inherit shadow-none outline-none;
 }
 
 .application.wod-revised .wod-levels__name:focus {
@@ -827,7 +839,7 @@
 }
 
 .application.wod-revised .wod-levels__delete {
-  @apply flex h-lh min-h-0 w-4 shrink-0 items-center justify-center border-0 bg-transparent p-0 text-sm leading-none text-wod-ink opacity-0;
+  @apply flex h-lh min-h-0 w-4 shrink-0 items-center justify-center border-0 bg-transparent p-0 text-sm leading-none text-wod-ink opacity-50;
 }
 
 .application.wod-revised .wod-levels__row:hover .wod-levels__delete,
@@ -837,7 +849,7 @@
 
 .application.wod-revised textarea.wod-levels__text {
   --input-height: auto;
-  @apply field-sizing-content min-h-12 w-full resize-none rounded-none border-0 border-b border-wod-hairline/40 bg-transparent px-0 py-0 font-wod-body text-sm leading-snug text-inherit shadow-none outline-none;
+  @apply field-sizing-content min-h-12 w-full resize-none rounded-none border-0 border-b border-wod-hairline/75 bg-transparent px-0 py-0 font-wod-body text-sm leading-snug text-inherit shadow-none outline-none;
 }
 
 .application.wod-revised textarea.wod-levels__text:focus {
@@ -954,7 +966,7 @@
 
 .application.wod-revised input.wod-pool__adjust-input {
   --input-height: 1.5rem;
-  @apply m-0 w-16 rounded-none border-0 border-b border-wod-hairline/40 bg-transparent px-0 pt-0.5 pb-0 font-wod-body text-base text-wod-bone shadow-none outline-none;
+  @apply m-0 w-16 rounded-none border-0 border-b border-wod-hairline/75 bg-transparent px-0 pt-0.5 pb-0 font-wod-body text-base text-wod-bone shadow-none outline-none;
 }
 
 .wod-pool__difficulty {
@@ -1096,25 +1108,24 @@
 }
 
 .wod-roll__die {
-  @apply relative inline-flex h-8 w-7 shrink-0 items-center justify-center border-0 bg-wod-d10 bg-contain bg-center bg-no-repeat pt-0.5 text-[0.95rem] leading-none font-bold text-black;
+  @apply relative isolate inline-flex h-8 w-7 shrink-0 items-center justify-center border-0 pt-0.5 text-[0.95rem] leading-none font-bold text-black;
 }
 
-.wod-roll__die.is-one,
-.wod-roll__die.is-hit {
-  -webkit-text-stroke: 0.65px #1a1610;
-  paint-order: stroke fill;
+/* Цифра всегда чёрная, результат показывает цвет самого кубика: контраст не ниже 5:1. */
+.wod-roll__die::before {
+  @apply absolute inset-0 -z-10 bg-wod-die mask-[url('/icons/svg/d10-grey.svg')] mask-contain mask-center mask-no-repeat content-wod-empty;
 }
 
-.wod-roll__die.is-one {
-  @apply text-wod-die-one;
+.wod-roll__die.is-one::before {
+  @apply bg-wod-die-one;
 }
 
-.wod-roll__die.is-hit {
-  @apply text-wod-die-hit;
+.wod-roll__die.is-hit::before {
+  @apply bg-wod-die-hit;
 }
 
-.wod-roll__die.is-extra:not(.is-hit) {
-  @apply text-wod-specialty;
+.wod-roll__die.is-extra:not(.is-hit)::before {
+  @apply bg-wod-specialty;
 }
 
 .wod-roll__explode {
