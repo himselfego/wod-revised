@@ -1,0 +1,71 @@
+{
+  "id": "wod-revised",
+  "title": "World of Darkness Revised",
+  "description": "Неофициальная система World of Darkness Revised для Foundry VTT. Смертные — первый шаг.",
+  "version": "1.0.0",
+  "url": "https://github.com/himselfego/wod-revised",
+  "bugs": "https://github.com/himselfego/wod-revised/issues",
+  "manifest": "https://github.com/himselfego/wod-revised/releases/latest/download/system.json",
+  "download": "https://github.com/himselfego/wod-revised/releases/download/v1.0.0/wod-revised.zip",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "14"
+  },
+  "esmodules": [
+    "dist/wod-revised.js"
+  ],
+  "styles": [
+    "fonts/fonts.css",
+    {
+      "src": "dist/wod-revised.css",
+      "layer": "system"
+    },
+    "styles/chat.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+    {
+      "lang": "ru",
+      "name": "Russian",
+      "path": "lang/ru.json"
+    }
+  ],
+  "documentTypes": {
+    "Actor": {
+      "mortal": {}
+    },
+    "Item": {
+      "background": {},
+      "flaw": {},
+      "merit": {},
+      "power": {},
+      "secondaryAbility": {},
+      "specialization": {}
+    }
+  },
+  "initiative": "1d10",
+  "grid": {
+    "distance": 2,
+    "units": "m"
+  },
+  "flags": {
+    "hotReload": {
+      "extensions": [
+        "css",
+        "hbs",
+        "json"
+      ],
+      "paths": [
+        "dist",
+        "fonts",
+        "styles",
+        "templates",
+        "lang"
+      ]
+    }
+  }
+}

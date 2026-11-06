@@ -1,0 +1,23 @@
+:is(#chat, #chat-notifications, .chat-log) .chat-message {
+  background: var(--color-wod-page) none;
+  color: var(--color-wod-bone);
+}
+
+:is(#chat, #chat-notifications, .chat-log) .chat-message .wod-roll__die {
+  color: #000;
+  font-size: 0.95rem;
+}
+
+:is(#chat, #chat-notifications, .chat-log) .chat-message .wod-roll__die.is-one,
+:is(#chat, #chat-notifications, .chat-log) .chat-message .wod-roll__die.is-hit {
+  -webkit-text-stroke: 0.65px #1a1610;
+  paint-order: stroke fill;
+}
+
+:is(#chat, #chat-notifications, .chat-log) .chat-message .wod-roll__die.is-one {
+  color: var(--color-wod-die-one);
+}
+
+:is(#chat, #chat-notifications, .chat-log) .chat-message .wod-roll__die.is-hit {
+  color: var(--color-wod-die-hit);
+}

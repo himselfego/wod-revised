@@ -1,0 +1,31 @@
+<div class="wod-roll">
+  {{#if formula}}
+  {{> "wod-formula"}}
+  <div class="wod-rule" aria-hidden="true"></div>
+  {{#if shouldShowSkillPenalty}}
+  <p class="wod-roll__note">{{localize "WOD.Roll.unskilledSkill"}}</p>
+  {{/if}}
+  {{/if}}
+  {{#if dice.length}}
+  <div class="wod-roll__dice">
+    {{#each dice as |die|}}
+    <span class="wod-roll__die{{#if die.one}} is-one{{/if}}{{#if die.hit}} is-hit{{/if}}">{{die.face}}</span>
+    {{/each}}
+    {{#if extraDice.length}}
+    <span class="wod-roll__explode" title="{{localize "WOD.Roll.specialization"}}"></span>
+    {{#each extraDice as |die|}}
+    <span class="wod-roll__die is-extra{{#if die.hit}} is-hit{{/if}}">{{die.face}}</span>
+    {{/each}}
+    {{/if}}
+  </div>
+  {{/if}}
+  <p class="wod-roll__result">
+    {{#if isBotch}}
+    {{localize "WOD.Roll.botch"}}
+    {{else if isFailure}}
+    {{localize "WOD.Roll.failure"}}
+    {{else}}
+    {{localize "WOD.Roll.successes" n=successes}}
+    {{/if}}
+  </p>
+</div>

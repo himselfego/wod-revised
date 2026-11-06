@@ -1,0 +1,1150 @@
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+@source "../../templates/**/*.hbs";
+@source not "../../**/*.{ts,tsx,js,mjs,md,json}";
+
+@theme {
+  --background-image-wod-d10: url('/icons/svg/d10-grey.svg');
+  --background-image-wod-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  --background-image-wod-portrait: radial-gradient(ellipse at center, transparent 45%, rgb(0 0 0 / 58%) 100%);
+  --background-image-wod-vignette: radial-gradient(ellipse at center, transparent 42%, rgb(0 0 0 / 62%) 100%);
+  --background-image-wod-wound: radial-gradient(
+    ellipse at 50% 40%,
+    transparent calc(88% - var(--wod-wound) * 55%),
+    color-mix(in oklab, var(--color-wod-health) calc(var(--wod-wound) * 92%), transparent) 100%
+  );
+  --inset-shadow-wod-wound: inset 0 0 calc(var(--wod-wound) * 2.5rem) calc(var(--wod-wound) * 1.1rem)
+    color-mix(in oklab, var(--color-wod-health) calc(var(--wod-wound) * 88%), transparent);
+  --opacity-wod-wound: min(1, calc(var(--wod-wound) * 1.65));
+  --color-wod-accent: #c4c8c8;
+  --color-wod-aggravated: #c9a0e4;
+  --color-wod-bashing: #f0dc4a;
+  --color-wod-bone: #cfc6b8;
+  --color-wod-die-hit: #16a34a;
+  --color-wod-die-one: #e11d2a;
+  --color-wod-hairline: #8a8173;
+  --color-wod-health: #9b2332;
+  --color-wod-ink: #9a9186;
+  --color-wod-label: color-mix(in oklab, var(--color-wod-bone) 38%, var(--color-wod-ink));
+  --color-wod-lethal: #d45a52;
+  --color-wod-money: #d4b45a;
+  --color-wod-page: #161410;
+  --color-wod-specialized: #9cb56a;
+  --color-wod-specialty: #e4c04a;
+  --color-wod-willpower: #3a6184;
+  --content-wod-aggravated: '✱';
+  --content-wod-bashing: '/';
+  --content-wod-diamond: '◆';
+  --content-wod-empty: '';
+  --content-wod-lethal: '✕';
+  --font-wod-body: 'EB Garamond', serif;
+  --font-wod-display: Forum, 'EB Garamond', serif;
+  --text-shadow-wod-pool:
+    0 0 0.35em var(--color-wod-accent), 0 0 0.95em color-mix(in oklab, var(--color-wod-accent) 75%, transparent);
+  --text-shadow-wod-pool-hover: 0 0 0.45em color-mix(in oklab, var(--color-wod-accent) 85%, transparent);
+  --text-shadow-wod-pool-idle: 0 0 0 transparent;
+  --text-shadow-wod-pooled-hover: 0 0 0.45em var(--color-wod-accent), 0 0 1.15em var(--color-wod-accent);
+}
+
+.application.wod-revised .window-content {
+  @apply flex min-h-0 flex-col overflow-hidden bg-wod-page p-3 text-wod-bone;
+}
+
+.application.wod-revised .window-content > form,
+.application.wod-revised .window-content .standard-form {
+  @apply flex min-h-0 flex-1 flex-col overflow-hidden bg-transparent text-inherit;
+}
+
+.application.wod-revised:not(.sheet) .wod-page {
+  @apply h-auto flex-none;
+}
+
+.application.wod-revised:not(.sheet) .wod-page__body {
+  @apply flex-none overflow-visible;
+}
+
+.wod-page {
+  @apply relative isolate flex min-h-0 flex-1 flex-col overflow-hidden font-wod-body scheme-dark;
+}
+
+.wod-page::before,
+.wod-page::after {
+  @apply pointer-events-none absolute inset-0 content-wod-empty;
+}
+
+.wod-page::before {
+  @apply z-0 bg-wod-vignette;
+}
+
+.wod-page::after {
+  @apply z-20 bg-wod-grain opacity-20 mix-blend-overlay;
+}
+
+.wod-page__frame {
+  @apply pointer-events-none absolute inset-1.5 z-30 border border-wod-hairline/40 outline outline-offset-2 outline-wod-hairline/40;
+}
+
+.wod-page__corners {
+  @apply absolute inset-0 block;
+}
+
+.wod-page__frame::before,
+.wod-page__frame::after,
+.wod-page__corners::before,
+.wod-page__corners::after {
+  @apply absolute size-3 border-0 border-solid border-wod-bone/55 content-wod-empty;
+}
+
+.wod-page__frame::before {
+  @apply -top-px -left-px border-t border-l;
+}
+
+.wod-page__frame::after {
+  @apply -top-px -right-px border-t border-r;
+}
+
+.wod-page__corners::before {
+  @apply -bottom-px -left-px border-b border-l;
+}
+
+.wod-page__corners::after {
+  @apply -right-px -bottom-px border-r border-b;
+}
+
+.wod-page__body {
+  @apply relative z-10 m-4 flex min-h-0 flex-1 flex-col gap-2 overflow-hidden;
+}
+
+.application.wod-revised.item .wod-page__body {
+  @apply gap-4 overflow-x-clip overflow-y-auto pr-3;
+}
+.wod-header {
+  @apply flex shrink-0 items-stretch gap-4;
+}
+
+.application.wod-revised.actor .wod-portrait {
+  --wod-wound: 0;
+  @apply relative box-border aspect-square w-45 shrink-0 cursor-pointer self-start overflow-hidden border border-wod-hairline/50 bg-black/30 p-0 outline outline-offset-[-3px] outline-wod-hairline/40;
+}
+
+.wod-portrait img {
+  @apply block size-full object-contain object-top outline-none;
+}
+
+.wod-portrait::before {
+  @apply pointer-events-none absolute inset-0 z-10 bg-wod-wound opacity-wod-wound inset-shadow-wod-wound transition content-wod-empty;
+}
+
+.wod-portrait.is-empty img {
+  @apply opacity-0;
+}
+
+.wod-portrait.is-empty::after {
+  @apply pointer-events-none absolute inset-0 z-0 bg-wod-portrait content-wod-empty;
+}
+
+.wod-portrait__view {
+  @apply pointer-events-none absolute top-1.5 right-1.5 z-20 grid size-7 place-items-center rounded-none border border-wod-hairline/60 bg-wod-page/85 p-0 text-sm text-wod-bone opacity-0 shadow-none;
+}
+
+.wod-portrait:hover .wod-portrait__view,
+.wod-portrait:focus-within .wod-portrait__view {
+  @apply pointer-events-auto opacity-100;
+}
+
+.wod-header__main {
+  @apply flex min-w-0 flex-1 flex-col gap-2;
+}
+
+.wod-tabs {
+  @apply relative m-0 flex shrink-0 items-center justify-center gap-8 border-0 bg-transparent px-10 py-0 shadow-none;
+}
+
+.application.wod-revised .wod-tabs .wod-tabs__tab {
+  @apply inline-flex cursor-pointer items-center gap-2 rounded-none border-0 border-b border-solid border-transparent bg-transparent p-0 font-wod-display text-base tracking-widest text-wod-ink uppercase shadow-none outline-none;
+}
+
+.application.wod-revised .wod-tabs .wod-tabs__tab i {
+  @apply text-sm font-normal tracking-normal;
+}
+
+.application.wod-revised .wod-tabs .wod-tabs__tab:hover {
+  @apply bg-transparent text-wod-bone;
+}
+
+.application.wod-revised .wod-tabs .wod-tabs__tab:focus {
+  @apply shadow-none outline outline-offset-1 outline-wod-accent/55;
+}
+
+.application.wod-revised .wod-tabs .wod-tabs__tab.active {
+  @apply border-x-0 border-t-0 border-b border-solid border-b-wod-accent bg-transparent text-wod-bone shadow-none;
+}
+
+.application.wod-revised .wod-tabs__settings {
+  @apply absolute top-1/2 right-0 m-0 size-7 min-h-0 -translate-y-1/2 cursor-pointer rounded-none border-0 bg-transparent p-0 text-sm text-wod-ink shadow-none;
+}
+
+.application.wod-revised .wod-tabs__settings:hover {
+  @apply bg-transparent text-wod-bone;
+}
+
+.application.wod-revised .wod-tabs__settings:focus-visible {
+  @apply shadow-none outline outline-offset-1 outline-wod-accent/55;
+}
+
+.wod-sheet-settings {
+  @apply flex flex-col gap-3 font-wod-body text-base text-wod-bone;
+}
+
+.wod-sheet-settings__option {
+  @apply flex cursor-pointer items-center gap-2;
+}
+
+.application.wod-revised .wod-sheet-settings__input {
+  --checkbox-size: 1rem;
+  --input-height: 1rem;
+  @apply m-0 size-4 max-w-4 shrink-0 cursor-pointer rounded-none border border-wod-hairline/60 bg-transparent accent-wod-willpower;
+}
+
+.wod-sheet-settings__option:has(:disabled) {
+  @apply cursor-not-allowed opacity-40;
+}
+
+.application.wod-revised.actor .tab.wod-tab {
+  @apply hidden min-h-0 flex-col gap-2 overflow-x-clip overflow-y-auto pr-3 [overflow-clip-margin:1rem];
+}
+
+.application.wod-revised.actor .tab.wod-tab.active {
+  @apply flex min-h-0 flex-1;
+}
+
+.wod-name,
+.wod-item-name {
+  @apply w-full min-w-0 rounded-none border-0 border-b border-wod-hairline/40 bg-transparent px-0 pt-0.5 pb-0 font-wod-display leading-tight tracking-wider text-wod-bone shadow-none outline-none;
+}
+
+.wod-name-row {
+  @apply flex min-w-0 items-center gap-2;
+}
+
+.wod-name-row .wod-name {
+  @apply w-auto min-w-0 flex-1;
+}
+
+.application.wod-revised .wod-pool-open {
+  --button-size: 2rem;
+  --input-height: 2rem;
+  @apply grid size-8 shrink-0 cursor-pointer place-items-center rounded-none border border-wod-hairline/60 bg-transparent p-0 text-sm text-wod-ink shadow-none;
+}
+
+.application.wod-revised .wod-pool-open:hover {
+  @apply border-wod-accent/70 bg-transparent text-wod-bone;
+}
+
+.application.wod-revised .wod-pool-open:focus-visible {
+  @apply shadow-none outline outline-offset-1 outline-wod-accent/55;
+}
+
+.application.wod-revised .wod-pool-open[hidden] {
+  @apply hidden;
+}
+
+.wod-name {
+  --input-height: 2rem;
+  @apply text-2xl;
+}
+
+.wod-item-name {
+  --input-height: 1.75rem;
+  @apply text-xl;
+}
+
+.wod-field {
+  @apply flex min-w-0 flex-col gap-0.5;
+}
+
+.wod-field > span {
+  @apply text-xs tracking-widest text-wod-ink uppercase;
+}
+
+.wod-field input,
+.wod-field select {
+  --input-height: 1.5rem;
+  @apply w-full rounded-none border-0 border-b border-wod-hairline/40 bg-transparent px-0 pt-0.5 pb-0 font-wod-body text-base text-wod-bone shadow-none outline-none;
+}
+
+.wod-identity {
+  @apply grid grid-cols-3 gap-4;
+}
+
+.wod-status-strip {
+  @apply mt-auto flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-wod-hairline/40 pt-2;
+}
+
+.wod-status-block {
+  @apply flex min-w-0 items-center gap-2;
+}
+
+.wod-status-block__label,
+.wod-willpower__caption {
+  @apply inline-flex shrink-0 items-center gap-1.5 text-xs tracking-normal text-wod-ink;
+}
+
+.wod-status-block__label i,
+.wod-willpower__caption i {
+  @apply text-sm font-normal;
+}
+
+.wod-status-strip__splat {
+  @apply min-h-4 min-w-8 flex-1;
+}
+
+.wod-status-money {
+  @apply gap-1;
+}
+
+.application.wod-revised input.wod-money {
+  --input-height: 1.25rem;
+  @apply [appearance:textfield] box-content min-w-[1ch] shrink-0 rounded-none border-0 border-b border-wod-hairline/40 bg-transparent p-0 font-wod-body text-base text-wod-money shadow-none tabular-nums;
+}
+
+.application.wod-revised wod-health,
+.application.wod-revised wod-willpower {
+  @apply inline-flex min-w-0 items-center gap-2;
+}
+
+.application.wod-revised wod-willpower .wod-willpower__track {
+  @apply flex flex-nowrap items-center gap-0.5;
+}
+
+.application.wod-revised wod-health:not([layout='book']) {
+  @apply gap-0.5;
+}
+
+.application.wod-revised button.wod-health-box,
+.application.wod-revised wod-willpower button.wod-willpower-box {
+  --button-size: 1rem;
+  --input-height: 1rem;
+  @apply relative box-border size-4 min-h-0 min-w-4 flex-none cursor-pointer overflow-hidden rounded-none p-0 font-wod-body text-xs leading-none shadow-none;
+}
+
+.application.wod-revised button.wod-health-box {
+  @apply @container border border-wod-health/80 bg-wod-health/20 text-wod-bone;
+}
+
+.application.wod-revised wod-willpower button.wod-willpower-box {
+  @apply border border-wod-willpower/80 bg-transparent;
+}
+
+.application.wod-revised wod-willpower button.wod-willpower-box.is-empty {
+  @apply bg-wod-willpower/20;
+}
+
+.application.wod-revised wod-willpower button.wod-willpower-box.is-filled {
+  @apply bg-wod-willpower/80;
+}
+
+.application.wod-revised .wod-health-box[data-damage='bashing']::after,
+.application.wod-revised .wod-health-box[data-damage='lethal']::after,
+.application.wod-revised .wod-health-box[data-damage='aggravated']::after {
+  @apply pointer-events-none absolute inset-0 grid place-items-center text-[85cqi] leading-none;
+}
+
+.application.wod-revised .wod-health-box[data-damage='bashing']::after {
+  @apply text-wod-bashing content-wod-bashing;
+}
+
+.application.wod-revised .wod-health-box[data-damage='lethal']::after {
+  @apply translate-y-[0.1em] text-wod-lethal content-wod-lethal;
+}
+
+.application.wod-revised .wod-health-box[data-damage='aggravated']::after {
+  @apply translate-y-[0.1em] text-wod-aggravated content-wod-aggravated;
+}
+
+.application.wod-revised wod-health[layout='book'] {
+  @apply grid w-full grid-cols-[max-content_max-content_max-content_minmax(0,1fr)] justify-items-start gap-x-2;
+}
+
+.wod-health-row {
+  @apply col-span-full grid grid-cols-subgrid items-center border-b border-wod-hairline/30 py-1;
+}
+
+.wod-health-row:last-child {
+  @apply border-b-0;
+}
+
+.wod-health-row__label {
+  @apply whitespace-nowrap text-sm text-wod-bone;
+}
+
+.wod-health-row__penalty {
+  @apply whitespace-nowrap text-xs text-wod-ink;
+}
+
+.application.wod-revised .wod-health-row button.wod-health-box {
+  --button-size: 1.5rem;
+  --input-height: 1.5rem;
+  @apply size-6 min-h-0 min-w-6;
+}
+
+.wod-health-row__desc {
+  @apply min-w-0 text-xs text-wod-ink;
+}
+
+.wod-soul-tracks {
+  @apply flex flex-col items-center gap-4;
+}
+
+.wod-soul-track {
+  @apply flex w-max flex-col items-center gap-1;
+}
+
+.wod-soul-track__name {
+  @apply text-sm leading-tight font-wod-display tracking-widest text-wod-bone uppercase;
+}
+
+.application.wod-revised .wod-soul-track wod-dots {
+  @apply gap-1;
+}
+
+.application.wod-revised .wod-soul-track wod-dots button {
+  @apply size-3;
+}
+
+.wod-banner {
+  @apply m-0 flex items-center gap-3 font-wod-display text-base tracking-widest text-wod-bone uppercase;
+}
+
+.wod-banner::before,
+.wod-banner::after {
+  @apply h-1 min-w-0 flex-1 border-y border-wod-hairline/40 content-wod-empty;
+}
+
+.wod-banner > span {
+  @apply inline-flex items-center gap-2 whitespace-nowrap;
+}
+
+.wod-banner > span::before,
+.wod-banner > span::after {
+  @apply text-xs text-wod-accent content-wod-diamond;
+}
+
+.wod-rule {
+  @apply h-1 w-full shrink-0 border-y border-wod-hairline/40;
+}
+
+.wod-columns {
+  @apply grid grid-cols-3 gap-4;
+}
+
+.wod-columns > * {
+  @apply min-w-0;
+}
+
+.wod-column-title {
+  @apply mt-0 mb-2 text-center font-wod-display text-sm tracking-widest text-wod-bone uppercase;
+}
+
+.wod-rows {
+  @apply m-0 flex list-none flex-col gap-2 p-0;
+}
+
+.application.wod-revised .wod-rows > li,
+.application.wod-revised .wod-spec-rows > li {
+  @apply m-0;
+}
+
+.wod-stat {
+  @apply relative flex flex-nowrap items-center gap-1.5;
+}
+
+.wod-stat__label {
+  @apply relative flex min-w-0;
+}
+
+.wod-stat__label:has(.wod-add--host) {
+  @apply pr-4;
+}
+
+.wod-stat__name {
+  @apply min-w-0 overflow-hidden text-xs leading-none tracking-wide text-wod-label uppercase whitespace-nowrap;
+}
+
+#tooltip.wod-level-tip {
+  @apply max-w-48 translate-y-2 px-2 py-1 text-left font-wod-body text-sm leading-snug whitespace-normal;
+}
+
+.application.wod-revised .wod-stat__name.is-poolable,
+.application.wod-revised .wod-soul-track__name.is-poolable {
+  @apply cursor-pointer text-shadow-wod-pool-idle select-none transition-[color,text-shadow] duration-150;
+}
+
+.application.wod-revised .wod-stat__name.is-poolable:hover,
+.application.wod-revised .wod-soul-track__name.is-poolable:hover {
+  @apply text-wod-bone text-shadow-wod-pool-hover;
+}
+
+.application.wod-revised .wod-stat__name.is-pooled,
+.application.wod-revised .wod-soul-track__name.is-pooled {
+  @apply text-wod-bone text-shadow-wod-pool;
+}
+
+.application.wod-revised .wod-stat__name.is-pooled:hover,
+.application.wod-revised .wod-soul-track__name.is-pooled:hover {
+  @apply text-shadow-wod-pooled-hover;
+}
+
+.wod-spec-rows {
+  @apply m-0 mt-1 flex list-none flex-col p-0 pl-1;
+}
+
+.wod-spec {
+  @apply relative flex min-h-0 items-center;
+}
+
+.application.wod-revised .wod-spec__open {
+  @apply m-0 flex h-auto min-h-0 min-w-0 flex-1 cursor-pointer items-center justify-start overflow-hidden rounded-none border-0 bg-transparent p-0 text-left font-wod-body text-sm leading-tight font-normal text-wod-ink italic whitespace-nowrap select-none shadow-none;
+}
+
+.wod-spec-host {
+  @apply m-0 text-sm text-wod-ink italic;
+}
+
+.application.wod-revised .wod-stat__name[data-action] {
+  @apply cursor-pointer select-none;
+}
+
+.application.wod-revised .wod-stat__name[data-action]:focus-visible {
+  @apply outline outline-offset-1 outline-wod-accent/55;
+}
+
+.application.wod-revised wod-dots {
+  @apply flex shrink-0 flex-nowrap gap-0.5;
+}
+
+.application.wod-revised .wod-stat wod-dots {
+  @apply ml-auto;
+}
+
+.application.wod-revised wod-dots button {
+  @apply box-border size-2.5 min-h-0 shrink-0 cursor-pointer rounded-full border border-wod-hairline/70 bg-transparent p-0 shadow-none;
+}
+
+.application.wod-revised wod-dots button.is-filled {
+  @apply border-wod-bone bg-wod-bone;
+}
+
+.application.wod-revised wod-dots button.is-ghost {
+  @apply cursor-default opacity-30;
+}
+
+.application.wod-revised :is(input.wod-money, .wod-radio input):focus {
+  @apply shadow-none outline outline-offset-1 outline-wod-accent/55;
+}
+
+.application.wod-revised
+  :is(.wod-name, .wod-item-name, .wod-field input, .wod-field select, input.wod-pool__adjust-input):focus {
+  @apply border-b-wod-accent/70 shadow-none outline-none;
+}
+
+.application.wod-revised .wod-portrait:focus-within {
+  @apply outline outline-offset-[-3px] outline-wod-accent/55;
+}
+
+.wod-columns--2 {
+  @apply grid-cols-2;
+}
+
+.wod-column-heading {
+  @apply mb-1 flex items-center justify-center gap-1.5;
+}
+
+.wod-column-heading .wod-column-title {
+  @apply mb-0;
+}
+
+.application.wod-revised .wod-add,
+.application.wod-revised .wod-spec__open,
+.application.wod-revised .wod-trait__delete,
+.application.wod-revised .wod-steps__delete,
+.application.wod-revised .wod-levels__delete,
+.application.wod-revised .wod-trait__open,
+.application.wod-revised .wod-save {
+  @apply cursor-pointer rounded-none shadow-none;
+}
+
+.application.wod-revised .wod-add {
+  @apply min-h-0 border-0 bg-transparent p-0 font-wod-display text-base leading-none text-wod-accent;
+}
+
+.application.wod-revised .wod-add--host {
+  @apply pointer-events-none absolute top-1/2 right-0 z-10 size-4 min-h-0 -translate-y-1/2 opacity-0;
+}
+
+.application.wod-revised .wod-trait__delete {
+  @apply size-4 min-h-0 shrink-0 border-0 bg-transparent p-0 text-sm leading-none text-wod-ink opacity-0;
+}
+
+.application.wod-revised .wod-stat > .wod-trait__delete,
+.application.wod-revised .wod-spec > .wod-trait__delete,
+.application.wod-revised .wod-trait > .wod-trait__delete {
+  @apply absolute top-1/2 left-full z-10 -translate-y-1/2;
+}
+
+.wod-trait {
+  @apply relative flex flex-nowrap items-center;
+}
+
+.application.wod-revised button.wod-trait__open {
+  @apply grid h-auto min-h-0 w-full min-w-0 flex-1 grid-cols-[minmax(0,1fr)_5rem_1.5rem] items-center gap-1.5 border-0 bg-transparent p-0 text-left font-wod-body leading-tight text-wod-bone select-none;
+}
+
+.wod-trait__name {
+  @apply min-w-0 overflow-hidden text-xs text-wod-ink uppercase tracking-wide whitespace-nowrap;
+}
+
+.wod-trait__category {
+  @apply min-w-0 text-right text-xs text-wod-ink uppercase tracking-widest;
+}
+
+.wod-trait__cost {
+  @apply text-right font-wod-body text-xs text-wod-bone;
+}
+
+.wod-host:has(wod-dots button.is-filled:nth-child(4)):hover .wod-add--host,
+.wod-host:has(wod-dots button.is-filled:nth-child(4)):focus-within .wod-add--host {
+  @apply pointer-events-auto opacity-100;
+}
+
+.wod-host:has(wod-dots button.is-filled:nth-child(4)):not(:has(.wod-spec)) .wod-add--host {
+  @apply pointer-events-auto text-wod-specialty opacity-100;
+}
+
+.wod-host:has(wod-dots button.is-filled:nth-child(4)):not(:has(.wod-spec)) .wod-stat__name {
+  @apply text-wod-specialty;
+}
+
+.wod-host:has(wod-dots button.is-filled:nth-child(4)):not(:has(.wod-spec)) wod-dots button.is-filled {
+  @apply border-wod-specialty bg-wod-specialty;
+}
+
+.wod-host:has(wod-dots button.is-filled:nth-child(4)):has(.wod-spec) .wod-stat__name {
+  @apply text-wod-specialized;
+}
+
+.wod-host:has(wod-dots button.is-filled:nth-child(4)):has(.wod-spec) wod-dots button.is-filled {
+  @apply border-wod-specialized bg-wod-specialized;
+}
+
+.wod-trait:hover .wod-trait__delete,
+.wod-trait:focus-within .wod-trait__delete,
+.wod-stat:hover .wod-trait__delete,
+.wod-stat:focus-within .wod-trait__delete,
+.wod-spec:hover .wod-trait__delete,
+.wod-spec:focus-within .wod-trait__delete {
+  @apply opacity-100;
+}
+
+.wod-item-meta {
+  @apply grid shrink-0 grid-cols-[auto_minmax(0,1fr)] items-start gap-x-6 gap-y-3;
+}
+
+.wod-item-heading {
+  @apply flex shrink-0 items-stretch gap-3;
+}
+
+.wod-item-heading .wod-field {
+  @apply min-w-0 flex-1;
+}
+
+.wod-item-art {
+  @apply relative box-border size-16 shrink-0 overflow-hidden border border-wod-hairline/50 bg-black/30 p-0;
+}
+
+.wod-item-art img {
+  @apply block size-full cursor-pointer object-cover outline-none;
+}
+
+.wod-item-cost,
+.wod-item-rating {
+  @apply w-14 shrink-0;
+}
+
+.wod-steps {
+  @apply flex min-h-0 shrink-0 flex-col gap-1;
+}
+
+.wod-steps__heading {
+  @apply flex items-center gap-1.5;
+}
+
+.wod-steps__label {
+  @apply text-xs text-wod-ink uppercase tracking-widest;
+}
+
+.wod-steps__list {
+  @apply m-0 flex list-none flex-col gap-0.5 p-0;
+}
+
+.wod-steps__row {
+  @apply grid grid-cols-[auto_minmax(0,1fr)] items-start gap-2 border-l-2 border-transparent py-0.5 pl-2 font-wod-body text-sm text-wod-ink;
+}
+
+.wod-steps__row:has(.wod-steps__delete) {
+  @apply grid-cols-[auto_minmax(0,1fr)_auto];
+}
+
+.wod-steps__row.is-current {
+  @apply border-wod-accent text-wod-bone;
+}
+
+.application.wod-revised .wod-steps__row.is-current .wod-steps__text {
+  @apply bg-black/20;
+}
+
+.wod-steps__pips {
+  @apply flex h-lh items-center gap-0.5;
+}
+
+.application.wod-revised .wod-steps__pips--handle {
+  @apply cursor-grab touch-none select-none;
+}
+
+.application.wod-revised .wod-steps__row.is-dragging {
+  @apply opacity-40;
+}
+
+.application.wod-revised .wod-steps__row.is-dragging .wod-steps__pips--handle {
+  @apply cursor-grabbing;
+}
+
+.wod-steps__pip {
+  @apply size-1.5 rounded-full border border-wod-hairline/70;
+}
+
+.wod-steps__pip.is-filled {
+  @apply border-wod-bone bg-wod-bone;
+}
+
+.wod-steps__text {
+  @apply min-w-0;
+}
+
+.application.wod-revised .wod-steps__delete {
+  @apply flex h-lh min-h-0 w-4 shrink-0 items-center justify-center border-0 bg-transparent p-0 text-sm leading-none text-wod-ink opacity-0;
+}
+
+.application.wod-revised .wod-steps__row:hover .wod-steps__delete,
+.application.wod-revised .wod-steps__row:focus-within .wod-steps__delete {
+  @apply opacity-100;
+}
+
+.application.wod-revised textarea.wod-steps__text {
+  --input-height: auto;
+  @apply field-sizing-content min-h-lh w-full resize-none rounded-none border-0 border-b border-wod-hairline/40 bg-transparent px-0 py-0 font-wod-body text-sm leading-snug text-inherit shadow-none outline-none;
+}
+
+.application.wod-revised textarea.wod-steps__text:focus {
+  @apply border-b-wod-accent/70 shadow-none outline-none;
+}
+
+.wod-levels {
+  @apply flex min-h-0 shrink-0 flex-col gap-1;
+}
+
+.wod-levels__heading {
+  @apply flex items-center gap-1.5;
+}
+
+.wod-levels__label {
+  @apply text-xs text-wod-ink uppercase tracking-widest;
+}
+
+.wod-levels__list {
+  @apply m-0 flex list-none flex-col gap-1.5 p-0;
+}
+
+.wod-levels__row {
+  @apply grid grid-cols-[auto_minmax(0,1fr)] items-start gap-2 border-l-2 border-transparent py-0.5 pl-2 font-wod-body text-sm text-wod-ink;
+}
+
+.wod-levels__row:has(.wod-levels__delete) {
+  @apply grid-cols-[auto_minmax(0,1fr)_auto];
+}
+
+.wod-levels__row.is-current {
+  @apply border-wod-accent text-wod-bone;
+}
+
+.application.wod-revised .wod-levels__row.is-current .wod-levels__main {
+  @apply bg-black/20;
+}
+
+.wod-levels__pips {
+  @apply flex h-lh items-center gap-0.5;
+}
+
+.application.wod-revised .wod-levels__pips--handle {
+  @apply cursor-grab touch-none select-none;
+}
+
+.application.wod-revised .wod-levels__row.is-dragging {
+  @apply opacity-40;
+}
+
+.application.wod-revised .wod-levels__row.is-dragging .wod-levels__pips--handle {
+  @apply cursor-grabbing;
+}
+
+.wod-levels__pip {
+  @apply size-1.5 rounded-full border border-wod-hairline/70;
+}
+
+.wod-levels__pip.is-filled {
+  @apply border-wod-bone bg-wod-bone;
+}
+
+.wod-levels__main {
+  @apply flex min-w-0 flex-col gap-1;
+}
+
+.wod-levels__title {
+  @apply font-wod-display text-sm tracking-wide text-wod-bone;
+}
+
+.application.wod-revised .wod-levels__name {
+  @apply w-full rounded-none border-0 border-b border-wod-hairline/40 bg-transparent px-0 py-0 font-wod-display text-sm text-inherit shadow-none outline-none;
+}
+
+.application.wod-revised .wod-levels__name:focus {
+  @apply border-b-wod-accent/70 shadow-none outline-none;
+}
+
+.wod-levels__text {
+  @apply min-w-0;
+}
+
+.application.wod-revised .wod-levels__delete {
+  @apply flex h-lh min-h-0 w-4 shrink-0 items-center justify-center border-0 bg-transparent p-0 text-sm leading-none text-wod-ink opacity-0;
+}
+
+.application.wod-revised .wod-levels__row:hover .wod-levels__delete,
+.application.wod-revised .wod-levels__row:focus-within .wod-levels__delete {
+  @apply opacity-100;
+}
+
+.application.wod-revised textarea.wod-levels__text {
+  --input-height: auto;
+  @apply field-sizing-content min-h-12 w-full resize-none rounded-none border-0 border-b border-wod-hairline/40 bg-transparent px-0 py-0 font-wod-body text-sm leading-snug text-inherit shadow-none outline-none;
+}
+
+.application.wod-revised textarea.wod-levels__text:focus {
+  @apply border-b-wod-accent/70 shadow-none outline-none;
+}
+
+.wod-html {
+  @apply min-w-0 font-wod-body text-sm leading-snug text-inherit;
+}
+
+.wod-html p {
+  @apply my-2 first:mt-0 last:mb-0;
+}
+
+.wod-html :is(h2, h3, h4) {
+  @apply mt-3 mb-1 font-wod-display text-sm font-normal tracking-widest text-wod-bone uppercase;
+}
+
+.wod-html table {
+  @apply my-2 w-full border-collapse text-xs;
+}
+
+.wod-html :is(th, td) {
+  @apply border border-wod-hairline/40 px-1.5 py-1 align-top;
+}
+
+.wod-html--mechanics {
+  @apply mt-0.5 border border-wod-hairline/40 bg-black/20 p-3;
+}
+
+.wod-radios {
+  @apply m-0 flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 border-0 p-0;
+}
+
+.wod-radios legend {
+  @apply float-none w-full px-0 pb-0.5 text-xs text-wod-ink uppercase tracking-widest;
+}
+
+.wod-radio {
+  @apply flex items-center gap-1.5 text-xs text-wod-bone uppercase tracking-wide;
+}
+
+.wod-radio input {
+  @apply accent-wod-accent;
+}
+
+.wod-editor {
+  @apply flex flex-none flex-col;
+}
+
+.wod-editor__heading {
+  @apply flex items-center gap-1.5;
+}
+
+.wod-editor__heading > span {
+  @apply text-xs tracking-widest text-wod-ink uppercase;
+}
+
+.application.wod-revised .wod-editor prose-mirror {
+  --min-height: 0;
+  @apply relative mt-0.5 flex h-auto min-h-0 w-full flex-none flex-col gap-0 overflow-visible border border-wod-hairline/40 bg-black/20 text-wod-bone;
+}
+
+.application.wod-revised .wod-editor prose-mirror > menu {
+  @apply relative z-10 shrink-0;
+}
+
+.application.wod-revised .wod-editor prose-mirror .editor-container {
+  @apply relative inset-auto min-h-0 flex-none overflow-visible;
+}
+
+.application.wod-revised .wod-editor prose-mirror .editor-content {
+  @apply static inset-auto h-auto min-h-16 overflow-visible p-0 font-wod-body text-wod-bone;
+}
+
+.application.wod-revised .wod-editor prose-mirror .ProseMirror {
+  @apply static inset-auto h-auto min-h-0 overflow-visible p-3 font-wod-body text-wod-bone;
+}
+
+.application.wod-revised .wod-editor prose-mirror .ProseMirror > p:first-child {
+  @apply mt-0;
+}
+
+.application.wod-revised .wod-editor prose-mirror .ProseMirror > p:last-child {
+  @apply mb-0;
+}
+
+.application.wod-revised .wod-save {
+  @apply mt-auto self-end border border-wod-hairline/60 bg-transparent px-3 py-1 font-wod-display text-xs tracking-widest text-wod-bone uppercase;
+}
+
+.wod-pool {
+  @apply flex flex-col gap-4 font-wod-body text-wod-bone;
+}
+
+.wod-pool__allow,
+.wod-pool__willpower {
+  @apply flex items-center gap-2 text-xs tracking-widest text-wod-ink uppercase;
+}
+
+.application.wod-revised .wod-pool__willpower-input {
+  --checkbox-size: 1rem;
+  --input-height: 1rem;
+  @apply m-0 size-4 max-w-4 shrink-0 cursor-pointer rounded-none border border-wod-hairline/60 bg-transparent accent-wod-willpower;
+}
+
+.wod-pool__willpower:has(:disabled) {
+  @apply cursor-not-allowed opacity-40;
+}
+
+.wod-pool__adjust {
+  @apply flex flex-col items-start gap-1;
+}
+
+.application.wod-revised input.wod-pool__adjust-input {
+  --input-height: 1.5rem;
+  @apply m-0 w-16 rounded-none border-0 border-b border-wod-hairline/40 bg-transparent px-0 pt-0.5 pb-0 font-wod-body text-base text-wod-bone shadow-none outline-none;
+}
+
+.wod-pool__difficulty {
+  @apply flex flex-col gap-1;
+}
+
+.wod-pool__difficulty-label {
+  @apply text-xs tracking-widest text-wod-ink uppercase;
+}
+
+.wod-pool__difficulty-buttons {
+  @apply flex flex-wrap gap-1;
+}
+
+.application.wod-revised .wod-pool__difficulty-button {
+  --button-size: 1.75rem;
+  --input-height: 1.75rem;
+  @apply m-0 size-7 shrink-0 cursor-pointer rounded-none border border-wod-hairline/60 bg-transparent p-0 font-wod-display text-sm text-wod-ink shadow-none;
+}
+
+.application.wod-revised .wod-pool__difficulty-button:hover {
+  @apply border-wod-accent/70 bg-transparent text-wod-bone;
+}
+
+.application.wod-revised .wod-pool__difficulty-button:focus-visible {
+  @apply shadow-none outline outline-offset-1 outline-wod-accent/55;
+}
+
+.application.wod-revised .wod-pool__difficulty-button.is-selected {
+  @apply border-wod-accent text-wod-bone;
+}
+
+.wod-formula {
+  @apply m-0 flex flex-col gap-1 font-wod-body text-wod-bone;
+}
+
+.wod-formula__row {
+  @apply m-0 flex flex-wrap items-start justify-between gap-x-4 gap-y-1;
+}
+
+.wod-formula__pool {
+  @apply m-0 min-w-0 flex-1 basis-48 text-base leading-snug;
+}
+
+.wod-formula__threshold {
+  @apply m-0 flex shrink-0 flex-col items-end gap-0.5 leading-snug;
+}
+
+.wod-formula__target {
+  @apply inline-flex items-baseline gap-1 text-base;
+}
+
+.wod-formula__vs {
+  @apply inline;
+}
+
+.wod-formula__vs i {
+  @apply mx-px not-italic;
+}
+
+.wod-formula__ledger {
+  @apply text-xs text-wod-ink;
+}
+
+.wod-formula__riders {
+  @apply m-0 flex flex-wrap items-baseline gap-x-2 text-sm text-wod-ink;
+}
+
+.wod-formula__sep {
+  @apply text-wod-ink;
+}
+
+.wod-formula__wp {
+  @apply inline text-wod-ink;
+}
+
+.wod-formula__wp i {
+  @apply mx-px not-italic;
+}
+
+.wod-formula__spec {
+  @apply inline text-wod-specialized italic;
+}
+
+.wod-roll .wod-formula__pool,
+.wod-roll .wod-formula__target {
+  @apply text-sm;
+}
+
+.application.wod-revised .wod-pool__spec-button {
+  --button-size: 1.75rem;
+  --input-height: 1.75rem;
+  @apply m-0 h-7 min-w-7 cursor-pointer rounded-none border border-wod-hairline/60 bg-transparent px-2 py-0 font-wod-display text-xs tracking-widest text-wod-ink uppercase shadow-none;
+}
+
+.application.wod-revised .wod-pool__spec-button:hover {
+  @apply border-wod-accent/70 bg-transparent text-wod-bone;
+}
+
+.application.wod-revised .wod-pool__spec-button:focus-visible {
+  @apply shadow-none outline outline-offset-1 outline-wod-accent/55;
+}
+
+.application.wod-revised .wod-pool__spec-button.is-selected {
+  @apply border-wod-specialized text-wod-bone;
+}
+
+.wod-pool__empty {
+  @apply m-0 text-sm text-wod-ink;
+}
+
+.wod-pool__note,
+.wod-roll__note {
+  @apply m-0 text-xs tracking-widest text-wod-ink uppercase;
+}
+
+.application.wod-revised .wod-pool__roll {
+  @apply self-end border border-wod-hairline/60 bg-transparent px-3 py-1 font-wod-display text-xs tracking-widest text-wod-bone uppercase shadow-none;
+}
+
+.application.wod-revised .wod-pool__roll:disabled {
+  @apply cursor-not-allowed opacity-40;
+}
+
+.wod-pool > .wod-formula + .wod-rule {
+  @apply -mt-1;
+}
+
+.wod-roll {
+  @apply flex flex-col gap-2 font-wod-body text-wod-bone;
+}
+
+.wod-roll__dice {
+  @apply flex w-full flex-wrap justify-center gap-x-1 gap-y-0;
+}
+
+.wod-roll__result {
+  @apply m-0 text-sm leading-snug text-wod-bone;
+}
+
+.wod-roll__die {
+  @apply relative inline-flex h-8 w-7 shrink-0 items-center justify-center border-0 bg-wod-d10 bg-contain bg-center bg-no-repeat pt-0.5 text-[0.95rem] leading-none font-bold text-black;
+}
+
+.wod-roll__die.is-one,
+.wod-roll__die.is-hit {
+  -webkit-text-stroke: 0.65px #1a1610;
+  paint-order: stroke fill;
+}
+
+.wod-roll__die.is-one {
+  @apply text-wod-die-one;
+}
+
+.wod-roll__die.is-hit {
+  @apply text-wod-die-hit;
+}
+
+.wod-roll__die.is-extra:not(.is-hit) {
+  @apply text-wod-specialty;
+}
+
+.wod-roll__explode {
+  @apply inline-flex h-8 w-3 shrink-0 items-center justify-center text-[0.65rem] text-wod-specialty;
+}
+
+.wod-roll__explode::before {
+  content: var(--content-wod-diamond);
+}
+
+.chat-message {
+  @apply overflow-hidden border-wod-hairline/40 bg-wod-page bg-none font-wod-body text-wod-bone scheme-dark;
+}
+
+.chat-message .message-header {
+  @apply items-center gap-2;
+}
+
+.chat-message .wod-chat-portrait {
+  @apply -mt-2 mb-0 -ml-2 size-11 shrink-0 self-center rounded-none border-0 object-cover object-top;
+}
+
+.chat-message :is(.message-header, .message-sender, .message-metadata, .whisper-to, .flavor-text) {
+  @apply text-wod-ink;
+}
+
+.chat-message .message-content {
+  @apply bg-transparent font-wod-body text-inherit;
+}
+
+.chat-message:has(.wod-roll) .dice-roll {
+  @apply hidden;
+}

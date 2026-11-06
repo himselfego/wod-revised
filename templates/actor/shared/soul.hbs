@@ -1,0 +1,54 @@
+<h2 class="wod-banner"><span>{{localize "WOD.Section.soul"}}</span></h2>
+
+<div class="wod-columns">
+  <div>
+    <h3 class="wod-column-title">{{localize "WOD.Section.virtues"}}</h3>
+    <ul class="wod-rows">
+      {{#each virtues as |virtue|}}
+      <li>
+        {{> "wod-stat"
+          label=virtue.label
+          max=virtue.max
+          name=(concat "system.virtues." virtue.key ".value")
+          poolId=virtue.key
+          poolKind="virtue"
+          value=virtue.value
+        }}
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+
+  <div class="wod-soul-tracks">
+    <div class="wod-soul-track">
+      <span
+        class="wod-soul-track__name"
+        data-pool-kind="humanity"
+        data-pool-id="humanity"
+      >{{localize "WOD.Field.humanity"}}</span>
+      <wod-dots
+        document-uuid="{{actor.uuid}}"
+        name="system.humanity"
+        value="{{system.humanity}}"
+        max="{{humanityMax}}"
+      ></wod-dots>
+    </div>
+    <div class="wod-soul-track">
+      <span
+        class="wod-soul-track__name"
+        data-pool-kind="willpower"
+        data-pool-id="willpower"
+      >{{localize "WOD.Field.willpower"}}</span>
+      <wod-dots
+        document-uuid="{{actor.uuid}}"
+        name="system.willpower.permanent"
+        value="{{system.willpower.permanent}}"
+        max="{{willpowerMax}}"
+      ></wod-dots>
+    </div>
+  </div>
+
+  <div>
+    <h3 class="wod-column-title">{{localize "WOD.Field.experience"}}</h3>
+  </div>
+</div>

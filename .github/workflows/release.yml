@@ -1,0 +1,62 @@
+name: Release
+
+# Релиз создаётся при пуше тега вида v1.2.3.
+# Foundry обновляет систему по ссылке `manifest` из system.json.
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Checks
+        run: |
+          npm run typecheck
+          npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Set version and URLs in system.json
+        env:
+          TAG: ${{ github.ref_name }}
+          REPO: ${{ github.repository }}
+        run: |
+          VERSION="${TAG#v}"
+          BASE="https://github.com/${REPO}"
+          jq --arg v "$VERSION" \
+             --arg url "$BASE" \
+             --arg bugs "$BASE/issues" \
+             --arg manifest "$BASE/releases/latest/download/system.json" \
+             --arg download "$BASE/releases/download/${TAG}/wod-revised.zip" \
+             '.version = $v | .url = $url | .bugs = $bugs | .manifest = $manifest | .download = $download' \
+             system.json > system.tmp.json
+          mv system.tmp.json system.json
+          cat system.json | jq '{version, manifest, download}'
+
+      - name: Package
+        run: |
+          zip -r wod-revised.zip system.json dist fonts styles templates lang
+          unzip -l wod-revised.zip | tail -n 1
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            system.json
+            wod-revised.zip
+          generate_release_notes: true

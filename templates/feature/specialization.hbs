@@ -1,0 +1,27 @@
+{{#> "wod-page"}}
+<label class="wod-field">
+  <span>{{localize "WOD.Field.name"}}</span>
+  <input class="wod-item-name" name="name" type="text" value="{{item.name}}" autocomplete="off" {{#unless editable}}disabled{{/unless}} />
+</label>
+
+{{#if isTargetLocked}}
+<p class="wod-spec-host">{{hostLabel}}</p>
+{{else}}
+<label class="wod-field">
+  <span>{{localize "WOD.Field.target"}}</span>
+  <select name="target" {{#unless editable}}disabled{{/unless}}>
+    {{#each targetGroups as |group|}}
+    <optgroup label="{{localize group.label}}">
+      {{#each group.options as |option|}}
+      <option value="{{option.value}}" {{#if option.selected}}selected{{/if}}>{{localize option.label}}</option>
+      {{/each}}
+    </optgroup>
+    {{/each}}
+  </select>
+</label>
+{{/if}}
+
+{{#if editable}}
+<button class="wod-save" type="submit">{{localize "WOD.Action.save"}}</button>
+{{/if}}
+{{/"wod-page"}}

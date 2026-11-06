@@ -1,0 +1,47 @@
+<div class="wod-stat"{{#if itemId}} data-item-id="{{itemId}}"{{/if}}>
+  <span class="wod-stat__label">
+    <span
+      class="wod-stat__name"
+      {{#if levelKind}}
+      data-level-kind="{{levelKind}}"
+      data-level-id="{{levelId}}"
+      data-tooltip-class="wod-level-tip"
+      {{#if levelKey}}data-tooltip="{{levelKey}}"{{/if}}
+      {{#if levelTip}}data-tooltip-text="{{levelTip}}"{{/if}}
+      {{/if}}
+      {{#if itemId}}data-action="openItem" role="button" tabindex="0" title="{{itemName}}"{{/if}}
+      {{#if poolKind}}data-pool-kind="{{poolKind}}" data-pool-id="{{poolId}}"{{/if}}
+    >{{#if itemId}}{{itemName}}{{else}}{{localize label}}{{/if}}</span>
+    {{#if addKind}}
+    {{#if @root.editable}}
+    <button
+      class="wod-add wod-add--host"
+      type="button"
+      data-action="createItem"
+      data-type="specialization"
+      data-target-kind="{{addKind}}"
+      data-target-id="{{addId}}"
+      title="{{localize "WOD.Action.addSpecialization"}}"
+      aria-label="{{localize "WOD.Action.addSpecialization"}}"
+    >+</button>
+    {{/if}}
+    {{/if}}
+  </span>
+  <wod-dots
+    document-uuid="{{#if itemUuid}}{{itemUuid}}{{else}}{{@root.actor.uuid}}{{/if}}"
+    name="{{name}}"
+    value="{{value}}"
+    max="{{max}}"
+  ></wod-dots>
+  {{#if itemId}}
+  {{#if @root.editable}}
+  <button
+    class="wod-trait__delete"
+    type="button"
+    data-action="deleteItem"
+    title="{{localize "DOCUMENT.Delete"}}"
+    aria-label="{{localize "DOCUMENT.Delete"}}"
+  >×</button>
+  {{/if}}
+  {{/if}}
+</div>

@@ -1,0 +1,28 @@
+<div class="wod-name-row">
+  <input class="wod-name" type="text" name="name" value="{{actor.name}}" />
+  {{#if canRollPool}}
+  <button
+    class="wod-pool-open"
+    type="button"
+    hidden
+    data-action="openPool"
+    title="{{localize "WOD.Action.roll"}}"
+    aria-label="{{localize "WOD.Action.roll"}}"
+  ><i class="fa-solid fa-dice" aria-hidden="true"></i></button>
+  {{/if}}
+</div>
+
+<div class="wod-identity">
+  <label class="wod-field">
+    <span>{{localize "WOD.Field.concept"}}</span>
+    <input type="text" name="system.concept" value="{{system.concept}}" />
+  </label>
+  <label class="wod-field">
+    <span>{{localize "WOD.Field.nature"}}</span>
+    <input type="text" name="system.nature" value="{{system.nature}}" />
+  </label>
+  <label class="wod-field">
+    <span>{{localize "WOD.Field.demeanor"}}</span>
+    <input type="text" name="system.demeanor" value="{{system.demeanor}}" />
+  </label>
+</div>

@@ -1,0 +1,30 @@
+<wod-health
+  document-uuid="{{actor.uuid}}"
+  states="{{healthStates}}"
+  {{#if layout}}layout="{{layout}}"{{/if}}
+>
+  {{#if layout}}
+  {{#each healthLevels as |level|}}
+  <div class="wod-health-row">
+    <span class="wod-health-row__label">{{localize level.labelKey}}</span>
+    <button
+      class="wod-health-box"
+      type="button"
+      data-index="{{@index}}"
+      title="{{level.title}}"
+    ></button>
+    <span class="wod-health-row__penalty">{{level.penaltyLabel}}</span>
+    <span class="wod-health-row__desc">{{localize level.descKey}}</span>
+  </div>
+  {{/each}}
+  {{else}}
+  {{#each healthLevels as |level|}}
+  <button
+    class="wod-health-box"
+    type="button"
+    data-index="{{@index}}"
+    title="{{level.title}}"
+  ></button>
+  {{/each}}
+  {{/if}}
+</wod-health>

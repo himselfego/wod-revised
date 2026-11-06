@@ -1,0 +1,24 @@
+<div class="wod-status-strip">
+  <div class="wod-status-block">
+    <span class="wod-status-block__label" title="{{localize "WOD.Field.health"}}" aria-label="{{localize "WOD.Field.health"}}"><i class="{{healthIcon}}" aria-hidden="true"></i></span>
+    {{> "wod-health"}}
+  </div>
+  <div class="wod-status-block">
+    {{> "wod-willpower"}}
+  </div>
+  <div class="wod-status-strip__splat"></div>
+  <div class="wod-status-block wod-status-money">
+    <span class="wod-status-block__label" title="{{localize "WOD.Field.money"}}" aria-label="{{localize "WOD.Field.money"}}"><i class="{{moneyIcon}}" aria-hidden="true"></i></span>
+    <input
+      class="wod-money"
+      type="text"
+      value="{{moneyLabel}}"
+      inputmode="decimal"
+      autocomplete="off"
+      size="1"
+      title="{{localize "WOD.Field.money"}}"
+      aria-label="{{localize "WOD.Field.money"}}"
+    />
+    <input class="wod-money-value" type="hidden" name="system.money" value="{{system.money}}" />
+  </div>
+</div>

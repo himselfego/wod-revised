@@ -1,0 +1,18 @@
+<ul class="wod-spec-rows">
+  {{#each specializations as |spec|}}
+  <li class="wod-spec" data-item-id="{{spec.id}}">
+    <button class="wod-spec__open" type="button" data-action="openItem" title="{{spec.name}}">
+      {{spec.name}}
+    </button>
+    {{#if @root.editable}}
+    <button
+      class="wod-trait__delete"
+      type="button"
+      data-action="deleteItem"
+      title="{{localize "DOCUMENT.Delete"}}"
+      aria-label="{{localize "DOCUMENT.Delete"}}"
+    >×</button>
+    {{/if}}
+  </li>
+  {{/each}}
+</ul>

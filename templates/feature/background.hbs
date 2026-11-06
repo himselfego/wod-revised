@@ -1,0 +1,159 @@
+{{#> "wod-page"}}
+<div class="wod-item-heading">
+  <div class="wod-item-art">
+    <img src="{{item.img}}" alt="{{item.name}}" data-action="editImage" data-edit="img" />
+  </div>
+
+  <label class="wod-field">
+    <span>{{localize "WOD.Field.name"}}</span>
+    <input class="wod-item-name" name="name" type="text" value="{{item.name}}" autocomplete="off" {{#unless editable}}disabled{{/unless}} />
+  </label>
+</div>
+
+<div class="wod-item-meta">
+  <label class="wod-field wod-item-rating">
+    <span>{{localize "WOD.Field.rating"}}</span>
+    <input
+      name="system.value"
+      type="number"
+      value="{{system.value}}"
+      min="{{valueMin}}"
+      max="{{valueMax}}"
+      step="1"
+      {{#unless editable}}disabled{{/unless}}
+    />
+  </label>
+
+  <label class="wod-field wod-item-rating">
+    <span>{{localize "WOD.Field.max"}}</span>
+    <input
+      name="system.max"
+      type="number"
+      value="{{system.max}}"
+      min="1"
+      step="1"
+      {{#unless editable}}disabled{{/unless}}
+    />
+  </label>
+</div>
+
+{{#if showDescription}}
+<div class="wod-field wod-editor{{#if collapsedDescription}} is-collapsed{{/if}}">
+  <div class="wod-editor__heading">
+    <span>{{localize "WOD.Field.description"}}</span>
+    {{#if collapsedDescription}}
+    <button
+      class="wod-add"
+      type="button"
+      data-action="revealEditor"
+      title="{{localize "WOD.Action.addDescription"}}"
+      aria-label="{{localize "WOD.Action.addDescription"}}"
+    >+</button>
+    {{/if}}
+  </div>
+  {{#if editable}}
+  <div class="wod-editor__body" {{#if collapsedDescription}}hidden{{/if}}>
+    <prose-mirror name="system.description" value="{{system.description}}">
+      {{{enrichedDescription}}}
+    </prose-mirror>
+  </div>
+  {{else}}
+  <prose-mirror name="system.description" value="{{system.description}}" disabled>
+    {{{enrichedDescription}}}
+  </prose-mirror>
+  {{/if}}
+</div>
+{{/if}}
+
+{{#if showMechanics}}
+<div class="wod-field wod-editor{{#if collapsedMechanics}} is-collapsed{{/if}}">
+  <div class="wod-editor__heading">
+    <span>{{localize "WOD.Field.mechanics"}}</span>
+    {{#if collapsedMechanics}}
+    <button
+      class="wod-add"
+      type="button"
+      data-action="revealEditor"
+      title="{{localize "WOD.Action.addMechanics"}}"
+      aria-label="{{localize "WOD.Action.addMechanics"}}"
+    >+</button>
+    {{/if}}
+  </div>
+  {{#if editable}}
+  <div class="wod-editor__body" {{#if collapsedMechanics}}hidden{{/if}}>
+    <prose-mirror name="system.mechanics" value="{{system.mechanics}}">
+      {{{enrichedMechanics}}}
+    </prose-mirror>
+  </div>
+  {{else}}
+  <div class="wod-html wod-html--mechanics">{{{enrichedMechanics}}}</div>
+  {{/if}}
+</div>
+{{/if}}
+
+{{#if showSteps}}
+<div class="wod-steps">
+  <div class="wod-steps__heading">
+    <span class="wod-steps__label">{{localize "WOD.Field.steps"}}</span>
+    {{#if editable}}
+    <button
+      class="wod-add"
+      type="button"
+      data-action="addStep"
+      title="{{localize "WOD.Action.addStep"}}"
+      aria-label="{{localize "WOD.Action.addStep"}}"
+    >+</button>
+    {{/if}}
+  </div>
+  <ol class="wod-steps__list">
+    {{#each steps as |row|}}
+    <li class="wod-steps__row{{#if row.current}} is-current{{/if}}">
+      <span
+        class="wod-steps__pips{{#if @root.editable}} wod-steps__pips--handle{{/if}}"
+        {{#if @root.editable}}title="{{localize "WOD.Action.reorderStep"}}" aria-label="{{localize "WOD.Action.reorderStep"}}"{{else}}aria-hidden="true"{{/if}}
+      >
+        {{#each row.pips as |pip|}}
+        <span class="wod-steps__pip{{#if pip.filled}} is-filled{{/if}}"></span>
+        {{/each}}
+      </span>
+      {{#if @root.editable}}
+      <textarea class="wod-steps__text" name="system.steps.{{@index}}.description" rows="1" autocomplete="off" draggable="false">{{row.description}}</textarea>
+      <button
+        class="wod-steps__delete"
+        type="button"
+        data-action="deleteStep"
+        title="{{localize "DOCUMENT.Delete"}}"
+        aria-label="{{localize "DOCUMENT.Delete"}}"
+      >×</button>
+      {{else}}
+      <span class="wod-steps__text">{{row.description}}</span>
+      {{/if}}
+    </li>
+    {{/each}}
+  </ol>
+  {{#if editable}}
+  <template class="wod-steps__blank">
+    <li class="wod-steps__row">
+      <span
+        class="wod-steps__pips wod-steps__pips--handle"
+        title="{{localize "WOD.Action.reorderStep"}}"
+        aria-label="{{localize "WOD.Action.reorderStep"}}"
+      ></span>
+      <textarea class="wod-steps__text" rows="1" autocomplete="off" draggable="false"></textarea>
+      <button
+        class="wod-steps__delete"
+        type="button"
+        data-action="deleteStep"
+        title="{{localize "DOCUMENT.Delete"}}"
+        aria-label="{{localize "DOCUMENT.Delete"}}"
+      >×</button>
+    </li>
+  </template>
+  {{/if}}
+</div>
+{{/if}}
+
+{{#if editable}}
+<button class="wod-save" type="submit">{{localize "WOD.Action.save"}}</button>
+{{/if}}
+{{/"wod-page"}}

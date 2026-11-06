@@ -1,0 +1,92 @@
+{{#> "wod-page"}}
+<div class="wod-pool">
+  {{#if formula}}
+  {{> "wod-formula"}}
+  {{else}}
+  <p class="wod-pool__empty">{{localize "WOD.Roll.empty"}}</p>
+  {{/if}}
+  <div class="wod-rule" aria-hidden="true"></div>
+  {{#if shouldShowSkillPenalty}}
+  <p class="wod-pool__note">{{localize "WOD.Roll.unskilledSkill"}}</p>
+  {{/if}}
+  {{#if isUnskilledBlocked}}
+  <p class="wod-pool__note">{{localize "WOD.Roll.unskilledKnowledge"}}</p>
+  {{/if}}
+  {{#if isIncapacitated}}
+  <p class="wod-pool__note">{{localize "WOD.Roll.incapacitated"}}</p>
+  {{/if}}
+  {{#if hasUnskilledKnowledge}}
+  <label class="wod-pool__allow">
+    <input
+      class="wod-pool__willpower-input"
+      type="checkbox"
+      data-action="toggleUnskilledKnowledge"
+      {{#if isUnskilledKnowledgeAllowed}}checked{{/if}}
+    >
+    <span>{{localize "WOD.Roll.allowUnskilled"}}</span>
+  </label>
+  {{/if}}
+  <label class="wod-pool__willpower">
+    <input
+      class="wod-pool__willpower-input"
+      type="checkbox"
+      data-action="toggleWillpower"
+      {{#if willSpendWillpower}}checked{{/if}}
+      {{#unless canSpendWillpower}}disabled{{/unless}}
+    >
+    <span>{{localize "WOD.Field.willpower"}}</span>
+  </label>
+  {{#if specializations.length}}
+  <div class="wod-pool__difficulty" role="group" aria-label="{{localize "WOD.Roll.specialization"}}">
+    <span class="wod-pool__difficulty-label">{{localize "WOD.Roll.specialization"}}</span>
+    <div class="wod-pool__difficulty-buttons">
+      {{#each specializations as |spec|}}
+      <button
+        class="wod-pool__spec-button{{#if spec.selected}} is-selected{{/if}}"
+        type="button"
+        data-action="toggleSpecialization"
+        data-specialization="{{spec.value}}"
+        aria-pressed="{{spec.selected}}"
+      >{{spec.label}}</button>
+      {{/each}}
+    </div>
+  </div>
+  {{/if}}
+  <label class="wod-pool__adjust">
+    <span class="wod-pool__difficulty-label">{{localize "WOD.Roll.bonusPenalty"}}</span>
+    <input
+      class="wod-pool__adjust-input"
+      type="text"
+      inputmode="numeric"
+      autocomplete="off"
+      spellcheck="false"
+      placeholder="0"
+      value="{{adjustText}}"
+    >
+  </label>
+  <div class="wod-pool__difficulty" role="group" aria-label="{{localize "WOD.Roll.difficulty"}}">
+    <span class="wod-pool__difficulty-label">{{localize "WOD.Roll.difficulty"}}</span>
+    <div class="wod-pool__difficulty-buttons">
+      {{#each difficulties as |option|}}
+      <button
+        class="wod-pool__difficulty-button{{#if option.selected}} is-selected{{/if}}"
+        type="button"
+        data-action="setDifficulty"
+        data-difficulty="{{option.value}}"
+        aria-pressed="{{option.selected}}"
+      >{{option.value}}</button>
+      {{/each}}
+    </div>
+  </div>
+  {{#if formula}}
+  <button
+    class="wod-pool__roll"
+    type="button"
+    data-action="submitPool"
+    {{#if blocked}}disabled{{/if}}
+  >
+    {{localize "WOD.Action.roll"}}
+  </button>
+  {{/if}}
+</div>
+{{/"wod-page"}}

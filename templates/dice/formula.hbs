@@ -1,0 +1,36 @@
+<div class="wod-formula">
+  <div class="wod-formula__row">
+    <p class="wod-formula__pool">{{formula}}</p>
+    <p
+      class="wod-formula__threshold"
+      title="{{localize "WOD.Roll.difficulty"}} {{effectiveDifficulty}}"
+    >
+      <span class="wod-formula__target">
+        <span class="wod-formula__dice">{{poolTotal}}d10</span>
+        <span class="wod-formula__vs">
+          <i class="fa-solid fa-greater-than-equal" aria-hidden="true"></i>
+          <span class="wod-formula__effective">{{effectiveDifficulty}}</span>
+        </span>
+      </span>
+      {{#if difficultyLedger}}
+      <span class="wod-formula__ledger">{{difficultyLedger}}</span>
+      {{/if}}
+    </p>
+  </div>
+  {{#if hasRiders}}
+  <p class="wod-formula__riders">
+    {{#if specialization}}
+    <span class="wod-formula__spec" title="{{localize "WOD.Roll.specialization"}}">{{specialization}}</span>
+    {{/if}}
+    {{#if willSpendWillpower}}
+    {{#if specialization}}
+    <span class="wod-formula__sep" aria-hidden="true">·</span>
+    {{/if}}
+    <span class="wod-formula__wp" title="{{localize "WOD.Field.willpower"}}">
+      {{localize "WOD.Roll.willpowerSuccess"}}
+      <i class="fa-solid fa-candle-holder" aria-hidden="true"></i>
+    </span>
+    {{/if}}
+  </p>
+  {{/if}}
+</div>

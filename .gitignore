@@ -1,0 +1,7 @@
+node_modules/
+dist/
+packs/
+*.local
+.sync-target
+*.tsbuildinfo
+__pycache__/

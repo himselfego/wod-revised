@@ -1,0 +1,13 @@
+<div class="wod-portrait{{#unless hasPortrait}} is-empty{{/unless}}" style="--wod-wound: {{woundVignette}}">
+  <img src="{{actor.img}}" alt="{{actor.name}}" data-action="editImage" data-edit="img" />
+  {{#if hasPortrait}}
+  <button
+    type="button"
+    class="wod-portrait__view"
+    data-action="showPortrait"
+    title="{{localize "WOD.Action.showPortrait"}}"
+  >
+    <i class="fa-solid fa-eye" aria-hidden="true"></i>
+  </button>
+  {{/if}}
+</div>

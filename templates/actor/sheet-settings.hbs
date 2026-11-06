@@ -1,0 +1,13 @@
+{{#> "wod-page"}}
+<div class="wod-sheet-settings">
+  <label class="wod-sheet-settings__option" data-action="toggleSecondaryAbilities">
+    <input
+      class="wod-sheet-settings__input"
+      type="checkbox"
+      {{#if showSecondaryAbilities}}checked{{/if}}
+      {{#unless editable}}disabled{{/unless}}
+    >
+    <span>{{localize "WOD.SheetSettings.showSecondaryAbilities"}}</span>
+  </label>
+</div>
+{{/"wod-page"}}

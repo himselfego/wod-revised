@@ -1,0 +1,157 @@
+{{#> "wod-page"}}
+<div class="wod-item-heading">
+  <div class="wod-item-art">
+    <img src="{{item.img}}" alt="{{item.name}}" data-action="editImage" data-edit="img" />
+  </div>
+
+  <label class="wod-field">
+    <span>{{localize "WOD.Field.name"}}</span>
+    <input class="wod-item-name" name="name" type="text" value="{{item.name}}" autocomplete="off" {{#unless editable}}disabled{{/unless}} />
+  </label>
+</div>
+
+<div class="wod-item-meta">
+  <label class="wod-field wod-item-rating">
+    <span>{{localize "WOD.Field.rating"}}</span>
+    <input
+      name="system.value"
+      type="number"
+      value="{{system.value}}"
+      min="{{valueMin}}"
+      max="{{valueMax}}"
+      step="1"
+      {{#unless editable}}disabled{{/unless}}
+    />
+  </label>
+
+  <label class="wod-field wod-item-rating">
+    <span>{{localize "WOD.Field.max"}}</span>
+    <input
+      name="system.max"
+      type="number"
+      value="{{system.max}}"
+      min="1"
+      step="1"
+      {{#unless editable}}disabled{{/unless}}
+    />
+  </label>
+</div>
+
+<fieldset class="wod-radios">
+  <legend>{{localize "WOD.Field.family"}}</legend>
+  {{#each families as |family|}}
+  <label class="wod-radio">
+    <input
+      name="system.family"
+      type="radio"
+      value="{{family.id}}"
+      {{#if family.checked}}checked{{/if}}
+      {{#unless @root.editable}}disabled{{/unless}}
+    />
+    <span>{{localize family.label}}</span>
+  </label>
+  {{/each}}
+</fieldset>
+
+<div class="wod-field wod-editor">
+  <span>{{localize "WOD.Field.description"}}</span>
+  <prose-mirror name="system.description" value="{{system.description}}" {{#unless editable}}disabled{{/unless}}>
+    {{{enrichedDescription}}}
+  </prose-mirror>
+</div>
+
+{{#if showLevels}}
+<div class="wod-levels">
+  <div class="wod-levels__heading">
+    <span class="wod-levels__label">{{localize "WOD.Field.levels"}}</span>
+    {{#if editable}}
+    <button
+      class="wod-add"
+      type="button"
+      data-action="addLevel"
+      title="{{localize "WOD.Action.addLevel"}}"
+      aria-label="{{localize "WOD.Action.addLevel"}}"
+    >+</button>
+    {{/if}}
+  </div>
+  <ol class="wod-levels__list">
+    {{#each levels as |row|}}
+    <li class="wod-levels__row{{#if row.current}} is-current{{/if}}">
+      <span
+        class="wod-levels__pips{{#if @root.editable}} wod-levels__pips--handle{{/if}}"
+        {{#if @root.editable}}title="{{localize "WOD.Action.reorderLevel"}}" aria-label="{{localize "WOD.Action.reorderLevel"}}"{{else}}aria-hidden="true"{{/if}}
+      >
+        {{#each row.pips as |pip|}}
+        <span class="wod-levels__pip{{#if pip.filled}} is-filled{{/if}}"></span>
+        {{/each}}
+      </span>
+      <div class="wod-levels__main">
+        {{#if @root.editable}}
+        <input
+          class="wod-levels__name"
+          name="system.levels.{{@index}}.name"
+          type="text"
+          value="{{row.name}}"
+          autocomplete="off"
+          draggable="false"
+        />
+        <textarea class="wod-levels__text" name="system.levels.{{@index}}.description" rows="2" autocomplete="off" draggable="false">{{row.description}}</textarea>
+        {{else}}
+        {{#if row.name}}<span class="wod-levels__title">{{row.name}}</span>{{/if}}
+        <div class="wod-html">{{{row.enrichedDescription}}}</div>
+        {{/if}}
+      </div>
+      {{#if @root.editable}}
+      <button
+        class="wod-levels__delete"
+        type="button"
+        data-action="deleteLevel"
+        title="{{localize "DOCUMENT.Delete"}}"
+        aria-label="{{localize "DOCUMENT.Delete"}}"
+      >×</button>
+      {{/if}}
+    </li>
+    {{/each}}
+  </ol>
+  {{#if editable}}
+  <template class="wod-levels__blank">
+    <li class="wod-levels__row">
+      <span
+        class="wod-levels__pips wod-levels__pips--handle"
+        title="{{localize "WOD.Action.reorderLevel"}}"
+        aria-label="{{localize "WOD.Action.reorderLevel"}}"
+      ></span>
+      <div class="wod-levels__main">
+        <input class="wod-levels__name" type="text" value="" autocomplete="off" draggable="false" />
+        <textarea class="wod-levels__text" rows="2" autocomplete="off" draggable="false"></textarea>
+      </div>
+      <button
+        class="wod-levels__delete"
+        type="button"
+        data-action="deleteLevel"
+        title="{{localize "DOCUMENT.Delete"}}"
+        aria-label="{{localize "DOCUMENT.Delete"}}"
+      >×</button>
+    </li>
+  </template>
+  {{/if}}
+</div>
+{{/if}}
+
+{{#if showMechanics}}
+<div class="wod-field wod-editor">
+  <span>{{localize "WOD.Field.mechanics"}}</span>
+  {{#if editable}}
+  <prose-mirror name="system.mechanics" value="{{system.mechanics}}">
+    {{{enrichedMechanics}}}
+  </prose-mirror>
+  {{else}}
+  <div class="wod-html wod-html--mechanics">{{{enrichedMechanics}}}</div>
+  {{/if}}
+</div>
+{{/if}}
+
+{{#if editable}}
+<button class="wod-save" type="submit">{{localize "WOD.Action.save"}}</button>
+{{/if}}
+{{/"wod-page"}}

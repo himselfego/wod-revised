@@ -1,0 +1,30 @@
+<h2 class="wod-banner"><span>{{localize "WOD.Section.abilities"}}</span></h2>
+
+<div class="wod-columns">
+  {{#each abilityColumns as |column|}}
+  <div>
+    <h3 class="wod-column-title">{{localize column.label}}</h3>
+    <ul class="wod-rows">
+      {{#each column.items as |ability|}}
+      <li class="wod-host">
+        {{> "wod-stat"
+          addId=ability.id
+          addKind="ability"
+          label=ability.label
+          levelId=ability.id
+          levelKey=ability.levelKey
+          levelKind="ability"
+          levelTip=ability.levelTip
+          max=ability.max
+          name=(concat "system.abilities." ability.id ".value")
+          poolId=ability.id
+          poolKind="ability"
+          value=ability.value
+        }}
+        {{> "wod-specializations" specializations=ability.specializations}}
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+  {{/each}}
+</div>

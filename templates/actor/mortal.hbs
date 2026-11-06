@@ -1,0 +1,35 @@
+{{#> "wod-page"}}
+{{> "wod-header"}}
+{{> "wod-tabs"}}
+<section
+  class="tab wod-tab {{sheetTabs.stats.cssClass}}"
+  data-group="sheet"
+  data-tab="stats"
+>
+  {{> "wod-attributes"}}
+  {{> "wod-abilities"}}
+  {{> "wod-soul"}}
+  {{#if showSecondaryAbilities}}
+  {{> "wod-secondary-abilities"}}
+  {{/if}}
+</section>
+<section
+  class="tab wod-tab {{sheetTabs.advantages.cssClass}}"
+  data-group="sheet"
+  data-tab="advantages"
+>
+  {{> "wod-merits-flaws"}}
+</section>
+<section
+  class="tab wod-tab {{sheetTabs.status.cssClass}}"
+  data-group="sheet"
+  data-tab="status"
+>
+  {{> "wod-status"}}
+</section>
+<section
+  class="tab wod-tab {{sheetTabs.inventory.cssClass}}"
+  data-group="sheet"
+  data-tab="inventory"
+></section>
+{{/"wod-page"}}

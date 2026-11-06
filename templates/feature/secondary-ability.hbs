@@ -1,0 +1,48 @@
+{{#> "wod-page"}}
+<label class="wod-field">
+  <span>{{localize "WOD.Field.name"}}</span>
+  <input class="wod-item-name" name="name" type="text" value="{{item.name}}" autocomplete="off" {{#unless editable}}disabled{{/unless}} />
+</label>
+
+<div class="wod-item-meta">
+  <label class="wod-field wod-item-rating">
+    <span>{{localize "WOD.Field.rating"}}</span>
+    <input
+      name="system.value"
+      type="number"
+      value="{{system.value}}"
+      min="{{valueMin}}"
+      max="{{valueMax}}"
+      step="1"
+      {{#unless editable}}disabled{{/unless}}
+    />
+  </label>
+
+  <fieldset class="wod-radios">
+    <legend>{{localize "WOD.Field.category"}}</legend>
+    {{#each categories as |category|}}
+    <label class="wod-radio">
+      <input
+        name="system.category"
+        type="radio"
+        value="{{category.id}}"
+        {{#if category.checked}}checked{{/if}}
+        {{#unless @root.editable}}disabled{{/unless}}
+      />
+      <span title="{{localize category.title}}">{{localize category.label}}</span>
+    </label>
+    {{/each}}
+  </fieldset>
+</div>
+
+<div class="wod-field wod-editor">
+  <span>{{localize "WOD.Field.description"}}</span>
+  <prose-mirror name="system.description" value="{{system.description}}" {{#unless editable}}disabled{{/unless}}>
+    {{{enrichedDescription}}}
+  </prose-mirror>
+</div>
+
+{{#if editable}}
+<button class="wod-save" type="submit">{{localize "WOD.Action.save"}}</button>
+{{/if}}
+{{/"wod-page"}}

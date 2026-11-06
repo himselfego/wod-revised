@@ -1,0 +1,41 @@
+<h2 class="wod-banner"><span>{{localize "WOD.Section.secondaryAbilities"}}</span></h2>
+
+<div class="wod-columns">
+  {{#each secondaryAbilityColumns as |column|}}
+  <div>
+    <div class="wod-column-heading">
+      <h3 class="wod-column-title">{{localize column.label}}</h3>
+      {{#if @root.editable}}
+      <button
+        class="wod-add"
+        type="button"
+        data-action="createItem"
+        data-type="secondaryAbility"
+        data-category="{{column.category}}"
+        title="{{localize column.addLabel}}"
+        aria-label="{{localize column.addLabel}}"
+      >+</button>
+      {{/if}}
+    </div>
+    <ul class="wod-rows">
+      {{#each column.items as |entry|}}
+      <li class="wod-host">
+        {{> "wod-stat"
+          addId=entry.id
+          addKind="secondaryAbility"
+          itemId=entry.id
+          itemName=entry.name
+          itemUuid=entry.uuid
+          max=entry.max
+          name="system.value"
+          poolId=entry.id
+          poolKind="secondaryAbility"
+          value=entry.value
+        }}
+        {{> "wod-specializations" specializations=entry.specializations}}
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+  {{/each}}
+</div>

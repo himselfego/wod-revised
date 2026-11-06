@@ -1,0 +1,41 @@
+<h2 class="wod-banner"><span>{{localize "WOD.Section.meritsFlaws"}}</span></h2>
+
+<div class="wod-columns wod-columns--2">
+  {{#each meritFlawColumns as |column|}}
+  <div>
+    <div class="wod-column-heading">
+      <h3 class="wod-column-title">{{localize column.label}}</h3>
+      {{#if @root.editable}}
+      <button
+        class="wod-add"
+        type="button"
+        data-action="createItem"
+        data-type="{{column.type}}"
+        title="{{localize column.addLabel}}"
+        aria-label="{{localize column.addLabel}}"
+      >+</button>
+      {{/if}}
+    </div>
+    <ul class="wod-rows">
+      {{#each column.items as |entry|}}
+      <li class="wod-trait" data-item-id="{{entry.id}}">
+        <button class="wod-trait__open" type="button" data-action="openItem" title="{{entry.name}}">
+          <span class="wod-trait__name">{{entry.name}}</span>
+          <span class="wod-trait__category">{{localize entry.categoryLabel}}</span>
+          <span class="wod-trait__cost">{{entry.cost}}</span>
+        </button>
+        {{#if @root.editable}}
+        <button
+          class="wod-trait__delete"
+          type="button"
+          data-action="deleteItem"
+          title="{{localize "DOCUMENT.Delete"}}"
+          aria-label="{{localize "DOCUMENT.Delete"}}"
+        >×</button>
+        {{/if}}
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+  {{/each}}
+</div>
