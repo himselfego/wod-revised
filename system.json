@@ -47,6 +47,19 @@
       "specialization": {}
     }
   },
+  "packs": [
+    {
+      "name": "mortals-merits-flaws",
+      "label": "Смертные: Достоинства и Недостатки",
+      "path": "packs/mortals-merits-flaws",
+      "type": "Item",
+      "system": "wod-revised",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    }
+  ],
   "initiative": "1d10",
   "grid": {
     "distance": 2,

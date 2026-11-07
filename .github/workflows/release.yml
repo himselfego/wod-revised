@@ -29,7 +29,9 @@ jobs:
           npm test
 
       - name: Build
-        run: npm run build
+        run: |
+          npm run build
+          npm run pack:items
 
       - name: Set version and URLs in system.json
         env:
@@ -50,7 +52,7 @@ jobs:
 
       - name: Package
         run: |
-          zip -r wod-revised.zip system.json dist fonts styles templates lang
+          zip -r wod-revised.zip system.json dist fonts styles templates lang assets packs
           unzip -l wod-revised.zip | tail -n 1
 
       - name: Create release

@@ -6,8 +6,9 @@
 //
 // Флаги:
 //   --manifest  копировать ещё и system.json (Foundry читает его только при запуске)
-//   --clean     перед копированием удалить на сервере dist, templates, lang, styles и fonts
-//   --init      первая установка: создать папку системы на сервере и скопировать system.json
+//   --packs     копировать ещё и packs (сначала npm run pack:items; мир на сервере должен быть закрыт)
+//   --clean     перед копированием удалить на сервере dist, templates, lang, styles, fonts и assets
+//   --init      первая установка: создать папку системы на сервере и скопировать system.json и packs
 //
 // Без --init скрипт не создаёт папку системы: если её нет, он остановится с ошибкой.
 //
@@ -20,12 +21,13 @@ import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
-const SYNC_DIRS = ['dist', 'templates', 'lang', 'styles', 'fonts'];
+const SYNC_DIRS = ['dist', 'templates', 'lang', 'styles', 'fonts', 'assets'];
 const DEBOUNCE_MS = 400;
 
 const flags = new Set(process.argv.slice(2));
 const isInit = flags.has('--init');
 const isWithManifest = isInit || flags.has('--manifest');
+const isWithPacks = isInit || flags.has('--packs');
 const isClean = flags.has('--clean');
 const isWatchMode = flags.has('--watch');
 
@@ -73,10 +75,17 @@ const { host, remotePath } = parseTarget(readTarget());
 const ssh = resolveSsh();
 
 const sync = () => new Promise((resolve, reject) => {
-  const directories = SYNC_DIRS.filter(directory => existsSync(path.join(root, directory)));
+  const wanted = isWithPacks ? [...SYNC_DIRS, 'packs'] : SYNC_DIRS;
+  const directories = wanted.filter(directory => existsSync(path.join(root, directory)));
 
   if (!directories.includes('dist')) {
     reject(new Error('Нет папки dist. Сначала выполни npm run build.'));
+
+    return;
+  }
+
+  if (isWithPacks && !directories.includes('packs')) {
+    reject(new Error('Нет папки packs. Сначала выполни npm run pack:items.'));
 
     return;
   }
@@ -88,8 +97,11 @@ const sync = () => new Promise((resolve, reject) => {
     remoteSteps.push(`mkdir -p '${remotePath}'`);
   }
   remoteSteps.push(`cd '${remotePath}'`);
-  if (isClean) {
-    remoteSteps.push(`rm -rf ${directories.join(' ')}`);
+  // Пак — база LevelDB: старые файлы рядом с новыми могут её испортить, поэтому packs заменяем целиком.
+  const removed = isClean ? directories : directories.filter(directory => directory === 'packs');
+
+  if (removed.length > 0) {
+    remoteSteps.push(`rm -rf ${removed.join(' ')}`);
   }
   remoteSteps.push('tar -xf -');
 

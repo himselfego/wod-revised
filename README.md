@@ -36,7 +36,11 @@ npm test             # тесты
 user@host:/путь/к/Data/systems/wod-revised
 ```
 
-При первой установке запустите `node scripts/sync.mjs --init`: он создаст папку на сервере и скопирует `system.json`. Дальше достаточно `npm run sync`. После изменений JS обновите страницу мира (F5), CSS, шаблоны и переводы подхватывает Hot Reload. Если менялся `system.json`, добавьте флаг `--manifest` и перезапустите Foundry.
+При первой установке выполните `npm run build`, `npm run pack:items` и `node scripts/sync.mjs --init`: скрипт создаст папку на сервере и скопирует `system.json` и паки. Дальше достаточно `npm run sync`. После изменений JS обновите страницу мира (F5), CSS, шаблоны и переводы подхватывает Hot Reload. Если менялся `system.json`, добавьте флаг `--manifest` и перезапустите Foundry.
+
+### Паки
+
+Содержимое паков лежит в `data/merits-flaws/*.json`. Файлы `data/fvtt-*.json` — исходные дампы другой системы, Foundry их не читает. `npm run pack:items` собирает из каталогов базы в `packs/`, в git они не попадают. Чтобы отправить паки на сервер, закройте мир и добавьте флаг `--packs`: Foundry держит базу пака открытой, пока мир запущен.
 
 Релиз собирает GitHub Actions при пуше тега вида `v1.2.3`.
 
