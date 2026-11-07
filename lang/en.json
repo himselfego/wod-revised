@@ -64,8 +64,8 @@
         "3": "Masters. You could write a journal article.",
         "4": "Doctorate. Distinguished professor.",
         "5": "Scholar. Scholars worldwide recognize you as one of the foremost experts of your time.",
-        "6": "Luminary. Your corrections to the canon become the canon while you are still around to see it.",
-        "7": "Authority. Specialists arrive to argue and leave quoting you.",
+        "6": "Authority. Your corrections to the canon become the canon while you are still around to see it.",
+        "7": "Luminary. Specialists arrive to argue and leave quoting you.",
         "8": "Canon. You hold in your head a stratum a department would need a library for.",
         "9": "Keeper. The past is a working tool, not a reference: you can see how an argument ends because you have already watched it.",
         "10": "Wellspring. If a thread of humane learning snapped somewhere, you still have the end of it."
@@ -76,7 +76,7 @@
         "3": "Competent. You keep a sharp eye on your surroundings.",
         "4": "Expert. Whether from paranoia or good sense, you are rarely surprised.",
         "5": "Master. Your senses are on par with a wild animal's.",
-        "6": "Legend. You catch a lie in someone's posture before you catch it in their words.",
+        "6": "Legend. Not even sleep catches you off guard.",
         "7": "Marvel. An ambush that would take a hunter is already noise to you.",
         "8": "Myth. You feel a stare through a wall and a crowd.",
         "9": "Byword. Even an elder who is used to being a shadow still leaves you a trace.",
@@ -127,7 +127,7 @@
         "6": "Legend. A seasoned fighter is one exchange for you.",
         "7": "Marvel. You break a guard before the other person understands that the fight has started.",
         "8": "Myth. Several enemies are a queue, not a numerical advantage.",
-        "9": "Byword. People know you by how quickly a room goes quiet.",
+        "9": "Byword. They say your fights end before a match burns out.",
         "10": "Absolute. Your hands are a weapon that needs neither a blade nor a name for the blow."
       },
       "commerce": {
@@ -148,8 +148,8 @@
         "3": "Masters. You can write software.",
         "4": "Doctorate. You can make good money as a consultant.",
         "5": "Scholar. You are the undisputed master of your craft.",
-        "6": "Luminary. Other people's systems are rooms with an unlocked door. The door is just not where they drew it.",
-        "7": "Authority. You write what other people later write on, and you keep a back door.",
+        "6": "Authority. Other people's systems are rooms with an unlocked door. The door is just not where they drew it.",
+        "7": "Luminary. You write what other people later write on, and you keep a back door.",
         "8": "Canon. The network, the hardware, and someone else's code answer you faster than their owners do.",
         "9": "Keeper. A machine you have never seen still tells you how it is built.",
         "10": "Wellspring. There is no closed system for you. There is a system that has not confessed yet."
@@ -162,7 +162,7 @@
         "5": "Master. You have practically no equal in your field.",
         "6": "Legend. A thing of yours outlives the fashion and reaches hands that know a master's hand.",
         "7": "Marvel. You repair and make what other people lack both the tool and the concept for.",
-        "8": "Myth. The material obeys you as if it remembered the shape in advance.",
+        "8": "Myth. You work materials other masters have only read about.",
         "9": "Byword. Craftsmen argue about how you did it, and they do not agree.",
         "10": "Absolute. In your craft there is no model left. You are the model."
       },
@@ -174,7 +174,7 @@
         "5": "Master. You can almost dodge bullets in the open.",
         "6": "Legend. You leave the line even when the blow already seems to have landed.",
         "7": "Marvel. A burst, a knife from a crowd, a car: you choose which of them will not happen.",
-        "8": "Myth. Hitting you in the open is nearly an insult to the shooter.",
+        "8": "Myth. Hitting you in the open is something a shooter brags about.",
         "9": "Byword. They say the bullet asks permission.",
         "10": "Absolute. You are not faster than the shot. You are simply already not where they aimed."
       },
@@ -232,10 +232,10 @@
         "3": "Masters. You could be a successful broker.",
         "4": "Doctorate. Entire corporations follow your financial advice.",
         "5": "Scholar. You can get rich with a $20 check.",
-        "6": "Luminary. Markets and other people's books are a mood to you, and you know how to spoil one on purpose.",
-        "7": "Authority. A fortune other people spend decades gathering, you assemble in the course of a deal.",
+        "6": "Authority. Markets and other people's books are a mood to you, and you know how to spoil one on purpose.",
+        "7": "Luminary. A fortune other people spend decades gathering, you assemble in the course of a deal.",
         "8": "Canon. Corporations and underground tills are equally transparent when you need the figures.",
-        "9": "Keeper. You can bring a house down or raise it up so that people will call it an accident.",
+        "9": "Keeper. You can bring a trading house down or raise it up so that people will call it an accident.",
         "10": "Wellspring. Money comes where you look, and leaves the people you point at."
       },
       "firearms": {
@@ -280,8 +280,8 @@
         "3": "Masters. Private detective.",
         "4": "Doctorate. Federal agent.",
         "5": "Scholar. Sherlock Holmes.",
-        "6": "Luminary. A clue the scene did not want to give up still ends up in your hands.",
-        "7": "Authority. You rebuild a night from dust, a pause, and what is not at the scene.",
+        "6": "Authority. A clue the scene did not want to give up still ends up in your hands.",
+        "7": "Luminary. You rebuild a night from dust, a pause, and what is not at the scene.",
         "8": "Canon. You tell a false trail from a true one before anyone has spent time on it.",
         "9": "Keeper. A crime everyone called closed opens itself when you are there.",
         "10": "Wellspring. If it happened, you can say how, even after everyone has already lied."
@@ -292,8 +292,8 @@
         "3": "Masters. You can file a competent brief.",
         "4": "Doctorate. A lot of powerful people have your number.",
         "5": "Scholar. You could find a loophole in a contract with the devil.",
-        "6": "Luminary. You find a gap in a law that was written against gaps like that.",
-        "7": "Authority. Court, tradition, and contract are one text to you, and you know which line is lying.",
+        "6": "Authority. You find a gap in a law that was written against gaps like that.",
+        "7": "Luminary. Court, tradition, and contract are one text to you, and you know which line is lying.",
         "8": "Canon. Powerful people call you before they make the mistake, and sometimes after.",
         "9": "Keeper. You can turn guilt into procedure, and procedure into a rescue.",
         "10": "Wellspring. Even an oath everyone called unbreakable has an exit in your reading."
@@ -315,7 +315,7 @@
         "2": "Practiced. You lift a purse from someone standing side-on.",
         "3": "Competent. Your hands work while you hold their eyes.",
         "4": "Expert. A search and someone else's pocket are nearly the same job.",
-        "5": "Master. An object changes owners, and the new owner thinks it was theirs for another minute.",
+        "5": "Master. An object changes owners, and the old one goes on believing it is still theirs for another minute.",
         "6": "Legend. You steal from the person who is waiting to be robbed.",
         "7": "Marvel. A knot, a seal, or a closed fist does not keep you from taking what you came for.",
         "8": "Myth. The thing disappears out of hands that were gripping it.",
@@ -328,8 +328,8 @@
         "3": "Masters. Four additional languages.",
         "4": "Doctorate. Eight additional languages.",
         "5": "Scholar. Sixteen additional languages.",
-        "6": "Luminary. Thirty-two additional languages.",
-        "7": "Authority. Sixty-four additional languages.",
+        "6": "Authority. Thirty-two additional languages.",
+        "7": "Luminary. Sixty-four additional languages.",
         "8": "Canon. One hundred and twenty-eight additional languages, dead ones included.",
         "9": "Keeper. Two hundred and fifty-six additional languages. An accent is a lexicon to you.",
         "10": "Wellspring. Five hundred and twelve additional languages. Speech is one family to you."
@@ -340,8 +340,8 @@
         "3": "Masters. A practicing physician.",
         "4": "Doctorate. You can perform transplants.",
         "5": "Scholar. The world medical community considers you a modern Asclepius.",
-        "6": "Luminary. A body is a diagram to you: you repair what other people write off.",
-        "7": "Authority. You can still put the rare, the foreign, and the nearly dead back to work.",
+        "6": "Authority. A body is a diagram to you: you repair what other people write off.",
+        "7": "Luminary. You can still put the rare, the foreign, and the nearly dead back to work.",
         "8": "Canon. Your diagnosis arrives ahead of the symptoms the patient has noticed.",
         "9": "Keeper. What medicine calls a miracle, you call a Tuesday.",
         "10": "Wellspring. Living flesh obeys your understanding as if you had been present when it was arranged."
@@ -364,8 +364,8 @@
         "3": "Masters. You have heard a great deal and seen little.",
         "4": "Doctorate. You can spot an outright lie and draw a conclusion about the rest.",
         "5": "Scholar. You know most of the major truths of the hidden world.",
-        "6": "Luminary. You separate heresy from a working ritual, and you know which lie still kills.",
-        "7": "Authority. The hidden world has a map for you, blank spots included, and you know how to go around them.",
+        "6": "Authority. You separate heresy from a working ritual, and you know which lie still kills.",
+        "7": "Luminary. The hidden world has a map for you, blank spots included, and you know how to go around them.",
         "8": "Canon. You hold the names, bans, and prices of the night as if you had signed them yourself.",
         "9": "Keeper. What other people call a myth, you can check, and most of the time you already have.",
         "10": "Wellspring. The major truths of the hidden world are not merely known to you. You use them."
@@ -388,8 +388,8 @@
         "3": "Masters. Campaign manager or a host on the radio.",
         "4": "Doctorate. Senator.",
         "5": "Scholar. You could be chosen the next President of the United States.",
-        "6": "Luminary. You move a decision before it has reached the agenda.",
-        "7": "Authority. A city, a sect, or a party treats your position as its own necessity.",
+        "6": "Authority. You move a decision before it has reached the agenda.",
+        "7": "Luminary. A city, a sect, or a party treats your position as its own necessity.",
         "8": "Canon. Power comes to consult you even when it pretends it does not.",
         "9": "Keeper. You can seat a figure or remove one so that people will call it the will of the times.",
         "10": "Wellspring. The night has a government. When it has to, that government is you."
@@ -412,8 +412,8 @@
         "3": "Masters. You could teach high school.",
         "4": "Doctorate. You have the full body of knowledge in your field.",
         "5": "Scholar. A Nobel Prize is already waiting for you.",
-        "6": "Luminary. Your field cites you where it used to cite the textbook.",
-        "7": "Authority. You can see an experiment that has not been run, and you know how it ends.",
+        "6": "Authority. Your field cites you where it used to cite the textbook.",
+        "7": "Luminary. You can see an experiment that has not been run, and you know how it ends.",
         "8": "Canon. A theory you corrected becomes what the next students are taught.",
         "9": "Keeper. The edge of the known is a workplace for you, not a wall.",
         "10": "Wellspring. Nature in your subject answers as if you had asked in its language."
@@ -496,8 +496,8 @@
         "3": "Competent. Scripture and rite are working tools for you, not only habit.",
         "4": "Expert. Priests listen when you take apart a difficult passage.",
         "5": "Master. The faith of the age sits whole in your head: the text, the heresy, and what it does in the square.",
-        "6": "Luminary. You read a foreign church as surely as your own.",
-        "7": "Authority. A dispute people were burned over, you can take apart by source and by consequence.",
+        "6": "Authority. You read a foreign church as surely as your own.",
+        "7": "Luminary. A dispute people were burned over, you can take apart by source and by consequence.",
         "8": "Canon. Sacred and forbidden stay distinct for you, even when someone mixed them on purpose.",
         "9": "Keeper. You hold a tradition no one is left to serve, and you know which part of it is still dangerous.",
         "10": "Wellspring. If a faith has a seam, you can find it and tell what happens if you pull."
@@ -522,7 +522,7 @@
         "3": "Good. You have some athletic potential.",
         "4": "Exceptional. You could be an acrobat if you wanted.",
         "5": "Outstanding. Your movements are supple and hypnotic, almost superhuman.",
-        "6": "Legend. A shot, a blade, a hand in a crowd — you are already past the place they aimed.",
+        "6": "Legend. You walk a ledge in the rain the way other people walk a pavement.",
         "7": "Marvel. You cross a room the way other people blink.",
         "8": "Myth. The weapon finds your hand. You were not looking for it.",
         "9": "Byword. They say you can take a coin from a sleeping man's eyelid.",
@@ -573,7 +573,7 @@
         "6": "Legend. The sentence is forgotten. The face remains.",
         "7": "Marvel. A crowd parts, and no one can say why they stepped aside.",
         "8": "Myth. Beauty and dread share your features, and both are believed.",
-        "9": "Byword. Painters cannot catch you. The sitting outlives the canvas.",
+        "9": "Byword. Painters cannot catch you: every portrait comes out paler than the sitter.",
         "10": "Absolute. To look at you is already to have chosen a side."
       },
       "perception": {
@@ -597,7 +597,7 @@
         "6": "Legend. A problem other people staff a room for, you finish before the cup cools.",
         "7": "Marvel. A library's argument sits in your head, and you know which page is lying.",
         "8": "Myth. What was written to hide itself explains itself to you.",
-        "9": "Byword. Scholars come to correct you and leave quoting you.",
+        "9": "Byword. Your guesses take other people years to prove.",
         "10": "Absolute. If the answer exists, it is already late. You have it."
       },
       "wits": {
