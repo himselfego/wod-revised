@@ -1,6 +1,8 @@
 import type { MeritFlawCategory } from '../../config';
+import type { RollModifier } from './roll-modifier';
 
 import { COST_MAX, COST_MIN, MERIT_FLAW_CATEGORY_ORDER } from '../../config';
+import { rollModifiersField } from './roll-modifier';
 
 const { HTMLField, NumberField, StringField } = foundry.data.fields;
 
@@ -8,6 +10,7 @@ export interface MeritFlawSystem {
   category: MeritFlawCategory;
   cost: number;
   description: string;
+  modifiers: RollModifier[];
 }
 
 export class MeritFlawDataModel extends foundry.abstract.TypeDataModel {
@@ -26,6 +29,7 @@ export class MeritFlawDataModel extends foundry.abstract.TypeDataModel {
         required: true,
       }),
       description: new HTMLField({ initial: '', required: true }),
+      modifiers: rollModifiersField(),
     };
   }
 }

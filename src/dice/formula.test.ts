@@ -1,4 +1,5 @@
 import type { AbilityCategory } from '../config';
+import type { ActiveModifier } from './modifiers';
 import type { PoolPart } from './pool';
 
 import { describe, expect, it } from 'vitest';
@@ -75,10 +76,12 @@ describe('formulaView', () => {
       specialization: undefined,
       willSpendWillpower: false,
     })).toStrictEqual({
+      autoSuccesses: 0,
       difficultyLedger: undefined,
       effectiveDifficulty: 6,
       formula: 'Strength 3 + Brawl 2',
       hasRiders: false,
+      ignoresWounds: false,
       poolTotal: 5,
       specialization: undefined,
       willSpendWillpower: false,
@@ -157,6 +160,92 @@ describe('formulaView', () => {
       hasRiders: true,
       specialization: 'Blades',
       willSpendWillpower: true,
+    });
+  });
+});
+
+const active = (patch: Partial<ActiveModifier>): ActiveModifier => ({
+  dice: 0,
+  difficulty: 0,
+  ignoreWounds: false,
+  label: 'Trait',
+  setDifficulty: 0,
+  successes: 0,
+  ...patch,
+});
+
+describe('formulaView with trait modifiers', () => {
+  const base = {
+    declared: 6,
+    parts: [STRENGTH, BRAWL],
+    penalty: 0,
+    specialization: undefined,
+    willSpendWillpower: false,
+  };
+
+  it('adds dice as named terms before the manual bonus', () => {
+    expect(formulaView({
+      ...base,
+      adjust: 1,
+      bonusLabel: 'bonus',
+      modifiers: [active({ dice: 2, label: 'Voice' }), active({ dice: -1, label: 'Hysteria' })],
+    })).toMatchObject({
+      formula: 'Strength 3 + Brawl 2 + Voice 2 − Hysteria 1 + bonus 1',
+      poolTotal: 7,
+    });
+  });
+
+  it('shifts difficulty with a labelled ledger and clamps it to 3…10', () => {
+    expect(formulaView({
+      ...base,
+      declared: 4,
+      modifiers: [active({ difficulty: -3, label: 'Leader' })],
+    })).toMatchObject({
+      difficultyLedger: '4 − 3 Leader',
+      effectiveDifficulty: 3,
+    });
+  });
+
+  it('starts from the highest override, then adds the skill penalty and shifts', () => {
+    expect(formulaView({
+      ...base,
+      modifiers: [
+        active({ label: 'Low', setDifficulty: 7 }),
+        active({ label: 'Seasick', setDifficulty: 8 }),
+        active({ difficulty: 1, label: 'Judge' }),
+      ],
+      penalty: 1,
+    })).toMatchObject({
+      difficultyLedger: '8 (Seasick) + 1 + 1 Judge',
+      effectiveDifficulty: 10,
+    });
+  });
+
+  it('drops the wound penalty and shows a rider when a modifier ignores wounds', () => {
+    expect(formulaView({
+      ...base,
+      modifiers: [active({ ignoreWounds: true })],
+      woundLabel: 'Hurt',
+      woundPenalty: 2,
+    })).toMatchObject({
+      formula: 'Strength 3 + Brawl 2',
+      hasRiders: true,
+      ignoresWounds: true,
+      poolTotal: 5,
+    });
+  });
+
+  it('does not report ignored wounds when there is no wound', () => {
+    expect(formulaView({ ...base, modifiers: [active({ ignoreWounds: true })] })).toMatchObject({
+      hasRiders: false,
+      ignoresWounds: false,
+    });
+  });
+
+  it('passes automatic successes as a rider', () => {
+    expect(formulaView({ ...base, modifiers: [active({ successes: 1 })] })).toMatchObject({
+      autoSuccesses: 1,
+      hasRiders: true,
     });
   });
 });

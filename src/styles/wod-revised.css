@@ -856,6 +856,102 @@
   @apply border-b-wod-accent/70 shadow-none outline-none;
 }
 
+.wod-mods {
+  @apply flex flex-none flex-col gap-1;
+}
+
+.wod-mods__heading {
+  @apply flex items-center gap-1.5;
+}
+
+.wod-mods__label {
+  @apply text-xs tracking-widest text-wod-ink uppercase;
+}
+
+.wod-mods__hint {
+  @apply m-0 text-xs text-wod-ink;
+}
+
+.wod-mods__list,
+.wod-mods__summary {
+  @apply m-0 flex list-none flex-col gap-2 p-0;
+}
+
+.wod-mods__summary {
+  @apply gap-1 font-wod-body text-sm text-wod-bone;
+}
+
+.wod-mods__row {
+  @apply flex flex-col gap-2 border border-wod-hairline/40 bg-black/20 p-2;
+}
+
+.wod-mods__targets {
+  @apply flex flex-wrap items-center gap-1;
+}
+
+.wod-mods__tags {
+  @apply contents;
+}
+
+.wod-mods__tag {
+  @apply inline-flex items-center gap-1 border border-wod-accent/60 px-1.5 py-0.5 text-xs text-wod-bone;
+}
+
+.application.wod-revised .wod-mods__tag-remove {
+  --button-size: auto;
+  --input-height: auto;
+  @apply m-0 h-auto min-h-0 w-auto cursor-pointer border-0 bg-transparent p-0 text-xs leading-none text-wod-ink shadow-none;
+}
+
+.wod-mods__none {
+  @apply hidden text-xs text-wod-ink italic;
+}
+
+.wod-mods__targets:not(:has(.wod-mods__tag)) .wod-mods__none {
+  @apply inline;
+}
+
+.application.wod-revised select.wod-mods__add-target {
+  --input-height: 1.5rem;
+  @apply m-0 h-6 w-auto max-w-56 rounded-none border border-wod-hairline/60 bg-transparent px-1 py-0 font-wod-body text-xs text-wod-ink;
+}
+
+.wod-mods__effects {
+  @apply grid grid-cols-[repeat(5,minmax(0,1fr))_auto_auto] items-end gap-2;
+}
+
+.wod-mods__num {
+  @apply flex min-w-0 flex-col gap-0.5 text-[0.65rem] tracking-wide text-wod-ink uppercase;
+}
+
+.application.wod-revised .wod-mods__num input {
+  --input-height: 1.5rem;
+  @apply m-0 w-full min-w-0 rounded-none border-0 border-b border-wod-hairline/75 bg-transparent px-0 py-0 font-wod-body text-sm text-wod-bone shadow-none outline-none;
+}
+
+.application.wod-revised .wod-mods__num input:focus {
+  @apply border-b-wod-accent/70 shadow-none outline-none;
+}
+
+.wod-mods__check {
+  @apply flex items-center gap-1 pb-0.5 text-[0.65rem] tracking-wide text-wod-ink uppercase;
+}
+
+.application.wod-revised .wod-mods__check input {
+  --checkbox-size: 0.875rem;
+  --input-height: 0.875rem;
+  @apply m-0 size-3.5 shrink-0 accent-wod-accent;
+}
+
+.application.wod-revised .wod-mods__delete {
+  @apply flex h-6 min-h-0 w-4 shrink-0 items-center justify-center border-0 bg-transparent p-0 text-sm leading-none text-wod-ink opacity-50;
+}
+
+.application.wod-revised .wod-mods__row:hover .wod-mods__delete,
+.application.wod-revised .wod-mods__row:focus-within .wod-mods__delete {
+  @apply opacity-100;
+}
+
 .wod-html {
   @apply min-w-0 font-wod-body text-sm leading-snug text-inherit;
 }
@@ -1035,8 +1131,9 @@
   @apply m-0 flex flex-wrap items-baseline gap-x-2 text-sm text-wod-ink;
 }
 
-.wod-formula__sep {
-  @apply text-wod-ink;
+.wod-formula__rider + .wod-formula__rider::before {
+  @apply mr-2 text-wod-ink;
+  content: '·';
 }
 
 .wod-formula__wp {
@@ -1074,8 +1171,76 @@
   @apply border-wod-specialized text-wod-bone;
 }
 
+.wod-pool__mods {
+  @apply flex flex-col items-start gap-1;
+}
+
+.wod-pool__mod-list {
+  @apply flex flex-wrap gap-1;
+}
+
+.wod-pool__mod {
+  @apply inline-flex items-stretch border border-wod-hairline/60;
+}
+
+.wod-pool__mod.is-selected {
+  @apply border-wod-accent;
+}
+
+.application.wod-revised .wod-pool__mod-toggle {
+  --button-size: auto;
+  --input-height: auto;
+  @apply m-0 h-auto min-h-7 cursor-pointer rounded-none border-0 bg-transparent px-2 py-1 text-left font-wod-body text-xs leading-snug text-wod-ink shadow-none;
+}
+
+.application.wod-revised .wod-pool__mod-toggle:hover,
+.application.wod-revised .wod-pool__mod.is-selected .wod-pool__mod-toggle {
+  @apply bg-transparent text-wod-bone;
+}
+
+.application.wod-revised .wod-pool__mod-toggle:focus-visible {
+  @apply shadow-none outline outline-offset-1 outline-wod-accent/55;
+}
+
+.wod-pool__mod-name {
+  @apply font-wod-display tracking-wide uppercase;
+}
+
+.wod-pool__mod-detail {
+  @apply ml-1.5;
+}
+
+.wod-pool__mod-step {
+  @apply inline-flex items-center gap-1 border-l border-wod-hairline/60 px-1;
+}
+
+.application.wod-revised .wod-pool__mod-step button {
+  --button-size: 1.25rem;
+  --input-height: 1.25rem;
+  @apply m-0 size-5 cursor-pointer rounded-none border border-wod-hairline/60 bg-transparent p-0 text-xs leading-none text-wod-ink shadow-none;
+}
+
+.application.wod-revised .wod-pool__mod-step button:disabled {
+  @apply cursor-not-allowed opacity-40;
+}
+
+.wod-pool__mod-amount {
+  @apply min-w-3 text-center text-sm text-wod-bone;
+}
+
+.application.wod-revised .wod-pool__mods-toggle {
+  --button-size: auto;
+  --input-height: auto;
+  @apply m-0 h-auto cursor-pointer border-0 bg-transparent p-0 text-xs text-wod-ink underline shadow-none;
+}
+
+.wod-pool__mods-empty,
 .wod-pool__empty {
   @apply m-0 text-sm text-wod-ink;
+}
+
+.wod-pool__mods-empty {
+  @apply text-xs;
 }
 
 .wod-pool__note,

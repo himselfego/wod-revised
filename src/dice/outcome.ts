@@ -47,13 +47,15 @@ const resolvePoolOutcome = (
   difficulty: number,
   willSpendWillpower = false,
   extraFaces: readonly number[] = [],
+  autoSuccesses = 0,
 ): PoolOutcome => {
   const dice = map(sortBy(faces), face => toDie(difficulty, face));
   const extraDice = map(sortBy(extraFaces), face => toExtraDie(difficulty, face));
   const hits = size(filter(dice, 'hit'));
   const ones = size(filter(dice, 'one'));
   const extraHits = size(filter(extraDice, 'hit'));
-  const successes = Math.max(hits - ones, 0) + extraHits + (willSpendWillpower ? 1 : 0);
+  // Автоуспехи, как и Сила воли, не сгорают от единиц и не дают провала.
+  const successes = Math.max(hits - ones, 0) + extraHits + (willSpendWillpower ? 1 : 0) + autoSuccesses;
 
   return {
     dice,

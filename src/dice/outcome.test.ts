@@ -407,3 +407,17 @@ describe('resolvePoolOutcome specialization extras', () => {
     expect(resolvePoolOutcome([10], 6, false)).toStrictEqual(resolvePoolOutcome([10], 6, false, []));
   });
 });
+
+describe('resolvePoolOutcome automatic successes', () => {
+  it('adds them after ones cancel hits', () => {
+    expect(resolvePoolOutcome([1, 7], 6, false, [], 2)).toMatchObject({ successes: 2, verdict: 'success' });
+  });
+
+  it('turns a would-be botch into a success, like willpower', () => {
+    expect(resolvePoolOutcome([1, 2], 6, false, [], 1)).toMatchObject({ successes: 1, verdict: 'success' });
+  });
+
+  it('stacks with willpower', () => {
+    expect(resolvePoolOutcome([5], 6, true, [], 1).successes).toBe(2);
+  });
+});

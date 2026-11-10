@@ -1,4 +1,65 @@
 {{#> "wod-page"}}
+{{#*inline "wodModifierRow"}}
+<li class="wod-mods__row">
+  <div class="wod-mods__targets">
+    <span class="wod-mods__tags">
+      {{#each mod.targets as |target|}}
+      <span class="wod-mods__tag" data-target="{{target.id}}">{{target.label}}<button
+          class="wod-mods__tag-remove"
+          type="button"
+          data-action="removeModifierTarget"
+          title="{{localize "WOD.Modifier.removeTarget"}}"
+          aria-label="{{localize "WOD.Modifier.removeTarget"}}"
+        >×</button></span>
+      {{/each}}
+    </span>
+    <span class="wod-mods__none">{{localize "WOD.Modifier.noTargets"}}</span>
+    <select class="wod-mods__add-target" aria-label="{{localize "WOD.Modifier.addTarget"}}">
+      <option value="">{{localize "WOD.Modifier.addTarget"}}</option>
+      {{#each @root.targetGroups as |group|}}
+      <optgroup label="{{group.label}}">
+        {{#each group.options as |option|}}
+        <option value="{{option.id}}">{{option.label}}</option>
+        {{/each}}
+      </optgroup>
+      {{/each}}
+    </select>
+  </div>
+  <div class="wod-mods__effects">
+    <label class="wod-mods__num">
+      <span>{{localize "WOD.Modifier.dice"}}</span>
+      <input data-field="dice" type="number" step="1" min="-{{@root.modifierLimits.dice}}" max="{{@root.modifierLimits.dice}}" value="{{mod.dice}}" />
+    </label>
+    <label class="wod-mods__num">
+      <span>{{localize "WOD.Modifier.difficulty"}}</span>
+      <input data-field="difficulty" type="number" step="1" min="-{{@root.modifierLimits.difficulty}}" max="{{@root.modifierLimits.difficulty}}" value="{{mod.difficulty}}" />
+    </label>
+    <label class="wod-mods__num">
+      <span>{{localize "WOD.Modifier.successes"}}</span>
+      <input data-field="successes" type="number" step="1" min="0" max="{{@root.modifierLimits.successes}}" value="{{mod.successes}}" />
+    </label>
+    <label class="wod-mods__num">
+      <span>{{localize "WOD.Modifier.setDifficulty"}}</span>
+      <input data-field="setDifficulty" type="number" step="1" min="{{@root.modifierLimits.difficultyMin}}" max="{{@root.modifierLimits.difficultyMax}}" placeholder="—" value="{{mod.setDifficulty}}" />
+    </label>
+    <label class="wod-mods__num">
+      <span>{{localize "WOD.Modifier.variable"}}</span>
+      <input data-field="variable" type="number" step="1" min="2" max="{{@root.modifierLimits.variable}}" placeholder="—" value="{{mod.variable}}" />
+    </label>
+    <label class="wod-mods__check">
+      <input data-field="ignoreWounds" type="checkbox" {{#if mod.ignoreWounds}}checked{{/if}} />
+      <span>{{localize "WOD.Modifier.ignoreWounds"}}</span>
+    </label>
+    <button
+      class="wod-mods__delete"
+      type="button"
+      data-action="deleteModifier"
+      title="{{localize "DOCUMENT.Delete"}}"
+      aria-label="{{localize "DOCUMENT.Delete"}}"
+    >×</button>
+  </div>
+</li>
+{{/inline}}
 <label class="wod-field">
   <span>{{localize "WOD.Field.name"}}</span>
   <input class="wod-item-name" name="name" type="text" value="{{item.name}}" autocomplete="off" {{#unless editable}}disabled{{/unless}} />
@@ -41,6 +102,38 @@
     {{{enrichedDescription}}}
   </prose-mirror>
 </div>
+
+{{#if showModifiers}}
+<div class="wod-mods">
+  <div class="wod-mods__heading">
+    <span class="wod-mods__label">{{localize "WOD.Modifier.title"}}</span>
+    {{#if editable}}
+    <button
+      class="wod-add"
+      type="button"
+      data-action="addModifier"
+      title="{{localize "WOD.Modifier.add"}}"
+      aria-label="{{localize "WOD.Modifier.add"}}"
+    >+</button>
+    {{/if}}
+  </div>
+  {{#if editable}}
+  <p class="wod-mods__hint">{{localize "WOD.Modifier.hint"}}</p>
+  <ol class="wod-mods__list">
+    {{#each modifiers as |modifier|}}
+    {{> wodModifierRow mod=modifier}}
+    {{/each}}
+  </ol>
+  <template class="wod-mods__blank">{{> wodModifierRow mod=blankModifier}}</template>
+  {{else}}
+  <ul class="wod-mods__summary">
+    {{#each modifiers as |modifier|}}
+    <li>{{modifier.summary}}</li>
+    {{/each}}
+  </ul>
+  {{/if}}
+</div>
+{{/if}}
 
 {{#if editable}}
 <button class="wod-save" type="submit">{{localize "WOD.Action.save"}}</button>

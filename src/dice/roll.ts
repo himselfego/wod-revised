@@ -1,4 +1,5 @@
 import type { FormulaView } from './formula';
+import type { ActiveModifier } from './modifiers';
 
 import concat from 'lodash/concat';
 import filter from 'lodash/filter';
@@ -24,6 +25,7 @@ interface RollPoolInput {
   difficulty?: number;
   isUnskilledKnowledgeAllowed?: boolean;
   keys: Iterable<string>;
+  modifiers?: readonly ActiveModifier[];
   specializationId?: string;
   willSpendWillpower?: boolean;
 }
@@ -83,6 +85,7 @@ const chatContext = (
     view.effectiveDifficulty,
     view.willSpendWillpower,
     extraFaces,
+    view.autoSuccesses,
   );
 
   return {
@@ -123,6 +126,7 @@ const rollPool = async ({
   difficulty = DIFFICULTY_DEFAULT,
   isUnskilledKnowledgeAllowed = false,
   keys,
+  modifiers = [],
   specializationId,
   willSpendWillpower = false,
 }: RollPoolInput): Promise<void> => {
@@ -143,6 +147,7 @@ const rollPool = async ({
     adjust: bonus,
     bonusLabel: game.i18n.localize('WOD.Roll.bonus'),
     declared,
+    modifiers,
     parts,
     penalty,
     penaltyLabel: game.i18n.localize('WOD.Roll.penalty'),

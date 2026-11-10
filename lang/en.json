@@ -711,6 +711,42 @@
     "HealthPenalty": {
       "none": "—"
     },
+    "Modifier": {
+      "title": "Roll modifiers",
+      "hint": "Switched on by hand in the roll dialog. Targets only suggest which pools a modifier fits.",
+      "add": "Add modifier",
+      "addTarget": "+ Target…",
+      "removeTarget": "Remove target",
+      "noTargets": "No target",
+      "dice": "Dice",
+      "difficulty": "Difficulty",
+      "successes": "Auto successes",
+      "setDifficulty": "Difficulty =",
+      "variable": "Variable up to",
+      "ignoreWounds": "No wound penalty",
+      "diceShort": "{n} dice",
+      "difficultyShort": "{n} diff.",
+      "successesShort": "+{n} succ.",
+      "setDifficultyShort": "diff. = {n}",
+      "ignoreWoundsShort": "no wound penalty",
+      "upTo": "up to {n}",
+      "noEffect": "no effect",
+      "any": "Any roll",
+      "attributeGroup": {
+        "physical": "Physical attributes",
+        "social": "Social attributes",
+        "mental": "Mental attributes"
+      },
+      "abilityCategory": {
+        "talents": "All talents",
+        "skills": "All skills",
+        "knowledges": "All knowledges"
+      },
+      "group": {
+        "common": "General",
+        "soul": "Soul"
+      }
+    },
     "Roll": {
       "allowUnskilled": "Common knowledge",
       "bonus": "bonus",
@@ -726,7 +762,15 @@
       "successes": "Successes: {n}",
       "unskilledKnowledge": "Knowledge 0 · roll not allowed",
       "unskilledSkill": "Skill 0 · difficulty +1",
-      "willpowerSuccess": "+1 success"
+      "willpowerSuccess": "+1 success",
+      "traits": "Traits",
+      "otherTraits": "Other traits · {n}",
+      "hideOtherTraits": "Hide other traits",
+      "noRelevantTraits": "Nothing fits this pool",
+      "autoSuccesses": "+{n} succ.",
+      "ignoresWounds": "no wound penalty",
+      "decrease": "Less",
+      "increase": "More"
     },
     "Section": {
       "attributes": "Attributes",

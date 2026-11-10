@@ -711,6 +711,42 @@
     "HealthPenalty": {
       "none": "—"
     },
+    "Modifier": {
+      "title": "Модификаторы броска",
+      "hint": "Включаются в диалоге броска вручную. Цели только подсказывают, к каким пулам модификатор подходит.",
+      "add": "Добавить модификатор",
+      "addTarget": "+ Цель…",
+      "removeTarget": "Убрать цель",
+      "noTargets": "Без цели",
+      "dice": "Кубики",
+      "difficulty": "Сложность",
+      "successes": "Автоуспехи",
+      "setDifficulty": "Сложность =",
+      "variable": "Переменная до",
+      "ignoreWounds": "Без штрафа ран",
+      "diceShort": "{n}к",
+      "difficultyShort": "{n} сл.",
+      "successesShort": "+{n} усп.",
+      "setDifficultyShort": "сл. = {n}",
+      "ignoreWoundsShort": "без штрафа ран",
+      "upTo": "до {n}",
+      "noEffect": "нет эффекта",
+      "any": "Любой бросок",
+      "attributeGroup": {
+        "physical": "Физические атрибуты",
+        "social": "Социальные атрибуты",
+        "mental": "Ментальные атрибуты"
+      },
+      "abilityCategory": {
+        "talents": "Все таланты",
+        "skills": "Все навыки",
+        "knowledges": "Все познания"
+      },
+      "group": {
+        "common": "Общее",
+        "soul": "Душа"
+      }
+    },
     "Roll": {
       "allowUnskilled": "Общеизвестный факт",
       "bonus": "бонус",
@@ -726,7 +762,15 @@
       "successes": "Успехи: {n}",
       "unskilledKnowledge": "Познание 0 · бросок невозможен",
       "unskilledSkill": "Навык 0 · сложность +1",
-      "willpowerSuccess": "+1 успех"
+      "willpowerSuccess": "+1 успех",
+      "traits": "Черты",
+      "otherTraits": "Остальные черты · {n}",
+      "hideOtherTraits": "Скрыть остальные черты",
+      "noRelevantTraits": "К этому пулу ничего не подходит",
+      "autoSuccesses": "+{n} усп.",
+      "ignoresWounds": "без штрафа ран",
+      "decrease": "Меньше",
+      "increase": "Больше"
     },
     "Section": {
       "attributes": "Атрибуты",

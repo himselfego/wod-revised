@@ -100,6 +100,7 @@ declare global {
       levels?: ReadonlyArray<{ description: string; name: string; rank: number }>;
       max?: number;
       mechanics?: string;
+      modifiers?: ReadonlyArray<import('./data/feature/roll-modifier').RollModifier>;
       steps?: ReadonlyArray<{ description: string; rank: number }>;
       targetId?: string;
       targetKind?: string;
@@ -219,6 +220,7 @@ declare global {
     data: {
       fields: {
         ArrayField: new (field: object, options?: object) => object;
+        BooleanField: new (options?: object) => object;
         HTMLField: new (options?: object) => object;
         NumberField: new (options?: object) => object;
         SchemaField: new (fields: object, options?: object) => object;
@@ -251,6 +253,7 @@ declare global {
       contents: FoundryActor[];
     };
     i18n: {
+      format: (key: string, data?: Record<string, unknown>) => string;
       localize: (key: string) => string;
     };
     scenes: {
@@ -267,6 +270,7 @@ declare global {
         difficulty?: number;
         isUnskilledKnowledgeAllowed?: boolean;
         keys: Iterable<string>;
+        modifiers?: readonly import('./dice/modifiers').ActiveModifier[];
         specializationId?: string;
         willSpendWillpower?: boolean;
       }) => Promise<void>;

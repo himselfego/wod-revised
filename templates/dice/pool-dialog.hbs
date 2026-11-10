@@ -1,4 +1,39 @@
 {{#> "wod-page"}}
+{{#*inline "wodPoolModifier"}}
+<div class="wod-pool__mod{{#if mod.selected}} is-selected{{/if}}">
+  <button
+    class="wod-pool__mod-toggle"
+    type="button"
+    data-action="toggleModifier"
+    data-modifier="{{mod.key}}"
+    aria-pressed="{{mod.selected}}"
+  >
+    <span class="wod-pool__mod-name">{{mod.label}}</span>
+    <span class="wod-pool__mod-detail">{{mod.detail}}</span>
+  </button>
+  {{#if mod.isVariable}}
+  <span class="wod-pool__mod-step">
+    <button
+      type="button"
+      data-action="stepModifier"
+      data-modifier="{{mod.key}}"
+      data-step="-1"
+      aria-label="{{localize "WOD.Roll.decrease"}}"
+      {{#unless mod.canDecrease}}disabled{{/unless}}
+    >−</button>
+    <span class="wod-pool__mod-amount">{{mod.amount}}</span>
+    <button
+      type="button"
+      data-action="stepModifier"
+      data-modifier="{{mod.key}}"
+      data-step="1"
+      aria-label="{{localize "WOD.Roll.increase"}}"
+      {{#unless mod.canIncrease}}disabled{{/unless}}
+    >+</button>
+  </span>
+  {{/if}}
+</div>
+{{/inline}}
 <div class="wod-pool">
   {{#if formula}}
   {{> "wod-formula"}}
@@ -50,6 +85,35 @@
       >{{spec.label}}</button>
       {{/each}}
     </div>
+  </div>
+  {{/if}}
+  {{#if hasModifiers}}
+  <div class="wod-pool__mods" role="group" aria-label="{{localize "WOD.Roll.traits"}}">
+    <span class="wod-pool__difficulty-label">{{localize "WOD.Roll.traits"}}</span>
+    {{#if relevantModifiers.length}}
+    <div class="wod-pool__mod-list">
+      {{#each relevantModifiers as |modifier|}}
+      {{> wodPoolModifier mod=modifier}}
+      {{/each}}
+    </div>
+    {{else}}
+    <p class="wod-pool__mods-empty">{{localize "WOD.Roll.noRelevantTraits"}}</p>
+    {{/if}}
+    {{#if otherModifiersToggle}}
+    <button
+      class="wod-pool__mods-toggle"
+      type="button"
+      data-action="toggleOtherModifiers"
+      aria-expanded="{{showOtherModifiers}}"
+    >{{otherModifiersLabel}}</button>
+    {{#if showOtherModifiers}}
+    <div class="wod-pool__mod-list">
+      {{#each otherModifiers as |modifier|}}
+      {{> wodPoolModifier mod=modifier}}
+      {{/each}}
+    </div>
+    {{/if}}
+    {{/if}}
   </div>
   {{/if}}
   <label class="wod-pool__adjust">
