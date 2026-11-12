@@ -21,14 +21,17 @@ class WodActor extends SuperActor {
     return super._preUpdate(changed, options, user);
   }
 
-  public override async clone(
+  /**
+   * Без `save: true` — копия в памяти, как у Foundry: в базу ничего не пишется.
+   */
+  public override clone(
     data: Record<string, unknown> = {},
     context: Record<string, unknown> = {},
-  ): Promise<FoundryActor> {
+  ): FoundryActor | Promise<FoundryActor> {
     const hasKeepId = Boolean(context['keepId']);
     const hasKeepEmbeddedIds = isBoolean(context['keepEmbeddedIds']) ? context['keepEmbeddedIds'] : hasKeepId;
 
-    if (hasKeepEmbeddedIds) {
+    if (hasKeepEmbeddedIds || context['save'] !== true) {
       return super.clone(data, context);
     }
 

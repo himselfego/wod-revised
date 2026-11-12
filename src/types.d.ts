@@ -9,6 +9,7 @@ declare class FoundryApplicationSheet {
   public rendered: boolean;
   public tabGroups: Record<string, string>;
   public _createContextMenu(handler: () => object[], selector: string, options?: object): unknown;
+  public _onFirstRender(context: unknown, options: unknown): Promise<void>;
   public _onRender(context: unknown, options: unknown): Promise<void>;
   public _preRender(context: unknown, options: unknown): Promise<void>;
   public _prepareContext(options: unknown): Promise<Record<string, unknown>>;
@@ -64,7 +65,10 @@ declare global {
     public name: string;
     public system: import('./data/splat/mortal').MortalSystem;
     public uuid: string;
-    public clone(data?: Record<string, unknown>, context?: Record<string, unknown>): Promise<FoundryActor>;
+    public clone(
+      data?: Record<string, unknown>,
+      context?: Record<string, unknown>,
+    ): FoundryActor | Promise<FoundryActor>;
     public getFlag(scope: string, key: string): unknown;
     public setFlag(scope: string, key: string, value: unknown): Promise<unknown>;
     public createEmbeddedDocuments(

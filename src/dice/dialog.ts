@@ -9,6 +9,7 @@ import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import map from 'lodash/map';
 import reject from 'lodash/reject';
+import replace from 'lodash/replace';
 import some from 'lodash/some';
 
 import { DIFFICULTIES, DIFFICULTY_DEFAULT, isDifficulty } from '../config';
@@ -256,21 +257,27 @@ const submitPool = async function (this: WodPoolDialog, event: Event): Promise<v
 
   const { active, unskilled, view, wound } = rollState(this);
 
-  if (unskilled?.blocked || wound.blocked || isEmpty(view.formula)) {
+  if (this.closing || unskilled?.blocked || wound.blocked || isEmpty(view.formula)) {
     return;
   }
 
-  await rollPool({
-    actor: this.host.document,
-    bonus: this.adjust,
-    difficulty: this.difficulty,
-    isUnskilledKnowledgeAllowed: this.isUnskilledKnowledgeAllowed,
-    keys: this.host.poolKeys(),
-    modifiers: active,
-    specializationId: this.specializationId,
-    willSpendWillpower: this.willSpendWillpower,
-  });
-  await this.close();
+  // Флаг ставится до первого await: второй клик до закрытия не бросает ещё раз.
+  this.closing = true;
+
+  try {
+    await rollPool({
+      actor: this.host.document,
+      bonus: this.adjust,
+      difficulty: this.difficulty,
+      isUnskilledKnowledgeAllowed: this.isUnskilledKnowledgeAllowed,
+      keys: this.host.poolKeys(),
+      modifiers: active,
+      specializationId: this.specializationId,
+      willSpendWillpower: this.willSpendWillpower,
+    });
+  } finally {
+    await this.close();
+  }
 };
 
 export class WodPoolDialog extends DialogBase {
@@ -312,7 +319,8 @@ export class WodPoolDialog extends DialogBase {
   public willSpendWillpower = false;
 
   public constructor(host: PoolHost) {
-    super({ id: `wod-pool-${host.document.id}` });
+    // По uuid, не id: у несвязанных токенов одного актёра общий id.
+    super({ id: `wod-pool-${replace(host.document.uuid, /\./g, '-')}` });
     this.host = host;
   }
 

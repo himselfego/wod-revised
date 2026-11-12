@@ -1,4 +1,5 @@
 import isNil from 'lodash/isNil';
+import replace from 'lodash/replace';
 
 const DialogBase = foundry.applications.api.HandlebarsApplicationMixin(
   foundry.applications.api.ApplicationV2,
@@ -51,7 +52,8 @@ class WodSheetSettings extends DialogBase {
   public readonly actor: FoundryActor;
 
   public constructor(actor: FoundryActor) {
-    super({ id: `wod-sheet-settings-${actor.id}` });
+    // По uuid, не id: у несвязанных токенов одного актёра общий id.
+    super({ id: `wod-sheet-settings-${replace(actor.uuid, /\./g, '-')}` });
     this.actor = actor;
   }
 
@@ -66,7 +68,7 @@ class WodSheetSettings extends DialogBase {
   }
 
   public override async close(options: object = {}): Promise<this> {
-    openSettings.delete(this.actor.id);
+    openSettings.delete(this.actor.uuid);
     await super.close(options);
 
     return this;
@@ -74,7 +76,7 @@ class WodSheetSettings extends DialogBase {
 }
 
 const openSheetSettings = (actor: FoundryActor): void => {
-  const existing = openSettings.get(actor.id);
+  const existing = openSettings.get(actor.uuid);
 
   if (!isNil(existing)) {
     void existing.render({ force: true });
@@ -84,7 +86,7 @@ const openSheetSettings = (actor: FoundryActor): void => {
 
   const app = new WodSheetSettings(actor);
 
-  openSettings.set(actor.id, app);
+  openSettings.set(actor.uuid, app);
   void app.render({ force: true });
 };
 

@@ -663,12 +663,19 @@ class WodActorSheet extends SheetBase {
     return CORE_TRACK_SYSTEM_KEYS;
   }
 
-  public override async _onRender(context: unknown, options: unknown): Promise<void> {
-    await super._onRender(context, options);
+  /**
+   * Меню вешается на рамку окна, она живёт между перерисовками: создаём один раз.
+   */
+  public override async _onFirstRender(context: unknown, options: unknown): Promise<void> {
+    await super._onFirstRender(context, options);
     this._createContextMenu(() => this.getOwnedItemContextOptions(), '[data-item-id]', {
       hookName: 'getWodItemContextOptions',
       parentClassHooks: false,
     });
+  }
+
+  public override async _onRender(context: unknown, options: unknown): Promise<void> {
+    await super._onRender(context, options);
     bindMoneyInput(this.element);
     bindSheetMinWidth(this.element);
     bindPoolUi(this);
