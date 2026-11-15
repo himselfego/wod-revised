@@ -772,13 +772,21 @@
       "decrease": "Меньше",
       "increase": "Больше"
     },
+    "MeritFlawGroup": {
+      "mental": "Ментальные",
+      "physical": "Физические",
+      "social": "Социальные",
+      "supernatural": "Сверхъестественные"
+    },
     "Section": {
       "attributes": "Атрибуты",
       "abilities": "Способности",
       "soul": "Душа",
       "virtues": "Добродетели",
       "secondaryAbilities": "Вторичные способности",
-      "meritsFlaws": "Достоинства и недостатки"
+      "meritsFlaws": "Достоинства и недостатки",
+      "merits": "Достоинства",
+      "flaws": "Недостатки"
     },
     "Sheet": {
       "Background": "Лист детали биографии",

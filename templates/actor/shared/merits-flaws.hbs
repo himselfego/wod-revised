@@ -16,12 +16,13 @@
       >+</button>
       {{/if}}
     </div>
+    {{#each column.groups as |group|}}
+    <h4 class="wod-group-title">{{localize group.label}}</h4>
     <ul class="wod-rows">
-      {{#each column.items as |entry|}}
+      {{#each group.items as |entry|}}
       <li class="wod-trait" data-item-id="{{entry.id}}">
         <button class="wod-trait__open" type="button" data-action="openItem" title="{{entry.name}}">
           <span class="wod-trait__name">{{entry.name}}</span>
-          <span class="wod-trait__category">{{localize entry.categoryLabel}}</span>
           <span class="wod-trait__cost">{{entry.cost}}</span>
         </button>
         {{#if @root.editable}}
@@ -34,10 +35,13 @@
         >×</button>
         {{/if}}
       </li>
-      {{else}}
-      <li class="wod-empty">{{#if @root.editable}}{{localize "WOD.Empty.listEditable"}}{{else}}{{localize "WOD.Empty.list"}}{{/if}}</li>
       {{/each}}
     </ul>
+    {{else}}
+    <ul class="wod-rows">
+      <li class="wod-empty">{{#if @root.editable}}{{localize "WOD.Empty.listEditable"}}{{else}}{{localize "WOD.Empty.list"}}{{/if}}</li>
+    </ul>
+    {{/each}}
   </div>
   {{/each}}
 </div>

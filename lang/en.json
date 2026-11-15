@@ -772,13 +772,21 @@
       "decrease": "Less",
       "increase": "More"
     },
+    "MeritFlawGroup": {
+      "mental": "Mental",
+      "physical": "Physical",
+      "social": "Social",
+      "supernatural": "Supernatural"
+    },
     "Section": {
       "attributes": "Attributes",
       "abilities": "Abilities",
       "soul": "Soul",
       "virtues": "Virtues",
       "secondaryAbilities": "Secondary Abilities",
-      "meritsFlaws": "Merits & Flaws"
+      "meritsFlaws": "Merits & Flaws",
+      "merits": "Merits",
+      "flaws": "Flaws"
     },
     "Sheet": {
       "Background": "Background Sheet",

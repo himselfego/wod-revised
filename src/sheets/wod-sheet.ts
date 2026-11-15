@@ -15,6 +15,7 @@ import keys from 'lodash/keys';
 import map from 'lodash/map';
 import sortBy from 'lodash/sortBy';
 import toLower from 'lodash/toLower';
+import uniq from 'lodash/uniq';
 
 import {
   ABILITY_CATEGORY_ORDER,
@@ -230,20 +231,26 @@ const prepareMeritFlawColumns = (
 ): readonly object[] => map(
   MERIT_FLAW_TYPE_ORDER,
   (type) => {
-    const owned = filter(items, ['type', type]);
-
-    return {
-      addLabel: MERIT_FLAW_ADD_LABEL[type],
-      items: map(
-        sortBy(owned, [item => categoryRank(item.system.category), item => toLower(item.name)]),
-        item => ({
-          categoryLabel: `WOD.CategoryShort.${item.system.category}`,
+    const owned = sortBy(filter(items, ['type', type]), [
+      item => categoryRank(item.system.category),
+      item => toLower(item.name),
+    ]);
+    const groups = map(
+      uniq(map(owned, 'system.category')),
+      category => ({
+        items: map(filter(owned, ['system.category', category]), item => ({
           cost: item.system.cost,
           id: item.id,
           name: item.name,
-        }),
-      ),
-      label: `TYPES.Item.${type}`,
+        })),
+        label: `WOD.MeritFlawGroup.${category}`,
+      }),
+    );
+
+    return {
+      addLabel: MERIT_FLAW_ADD_LABEL[type],
+      groups,
+      label: `WOD.Section.${type}s`,
       type,
     };
   },

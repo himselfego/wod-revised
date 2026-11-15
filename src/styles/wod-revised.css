@@ -207,6 +207,12 @@
   @apply m-0 size-4 max-w-4 shrink-0 cursor-pointer rounded-none border border-wod-hairline/60 bg-transparent accent-wod-willpower;
 }
 
+/* Галочка Foundry — ::before; без явного центрирования её глиф уезжает ниже рамки. */
+.application.wod-revised .wod-sheet-settings__input::before,
+.application.wod-revised .wod-pool__willpower-input::before {
+  @apply absolute inset-0 m-0 flex items-center justify-center text-[0.625rem] leading-none;
+}
+
 .wod-sheet-settings__option:has(:disabled) {
   @apply cursor-not-allowed opacity-40;
 }
@@ -610,15 +616,15 @@
 }
 
 .application.wod-revised button.wod-trait__open {
-  @apply grid h-auto min-h-0 w-full min-w-0 flex-1 grid-cols-[minmax(0,1fr)_5rem_1.5rem] items-center gap-1.5 border-0 bg-transparent p-0 text-left font-wod-body leading-tight text-wod-bone select-none;
+  @apply grid h-auto min-h-0 w-full min-w-0 flex-1 grid-cols-[minmax(0,1fr)_1.5rem] items-center gap-1.5 border-0 bg-transparent p-0 text-left font-wod-body leading-tight text-wod-bone select-none;
 }
 
 .wod-trait__name {
   @apply min-w-0 overflow-hidden text-xs text-wod-ink uppercase tracking-wide whitespace-nowrap;
 }
 
-.wod-trait__category {
-  @apply min-w-0 text-right text-xs text-wod-ink uppercase tracking-widest;
+.wod-group-title {
+  @apply mt-2 mb-0.5 border-b border-wod-hairline/75 pb-0.5 font-wod-display text-xs tracking-widest text-wod-ink uppercase;
 }
 
 .wod-trait__cost {
