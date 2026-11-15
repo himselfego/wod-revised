@@ -204,18 +204,8 @@
 .application.wod-revised .wod-sheet-settings__input {
   --checkbox-size: 1rem;
   --input-height: 1rem;
-  @apply m-0 size-4 max-w-4 shrink-0 cursor-pointer rounded-none border border-wod-hairline/60 bg-transparent accent-wod-willpower;
-}
-
-/* Отметка Foundry — ::before; без явной геометрии она уезжает от центра рамки. */
-.application.wod-revised .wod-sheet-settings__input,
-.application.wod-revised .wod-pool__willpower-input {
-  @apply relative;
-}
-
-.application.wod-revised .wod-sheet-settings__input::before,
-.application.wod-revised .wod-pool__willpower-input::before {
-  @apply absolute top-1/2 left-1/2 m-0 size-2 -translate-1/2 transform-none;
+  /* text-xs как у чекбокса в диалоге броска: отметка Foundry зависит от font-size/line-height. */
+  @apply m-0 size-4 max-w-4 shrink-0 cursor-pointer rounded-none border border-wod-hairline/60 bg-transparent text-xs accent-wod-willpower;
 }
 
 .wod-sheet-settings__option:has(:disabled) {
