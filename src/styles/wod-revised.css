@@ -207,10 +207,15 @@
   @apply m-0 size-4 max-w-4 shrink-0 cursor-pointer rounded-none border border-wod-hairline/60 bg-transparent accent-wod-willpower;
 }
 
-/* Галочка Foundry — ::before; без явного центрирования её глиф уезжает ниже рамки. */
+/* Отметка Foundry — ::before; без явной геометрии она уезжает от центра рамки. */
+.application.wod-revised .wod-sheet-settings__input,
+.application.wod-revised .wod-pool__willpower-input {
+  @apply relative;
+}
+
 .application.wod-revised .wod-sheet-settings__input::before,
 .application.wod-revised .wod-pool__willpower-input::before {
-  @apply absolute inset-0 m-0 flex items-center justify-center text-[0.625rem] leading-none;
+  @apply absolute top-1/2 left-1/2 m-0 size-2 -translate-1/2 transform-none;
 }
 
 .wod-sheet-settings__option:has(:disabled) {
